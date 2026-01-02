@@ -1,17 +1,18 @@
 /* Modern Dark Theme Variables */
 :root {
     --bg-color: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7); /* Glass effect */
+    --card-bg: rgba(30, 41, 59, 0.7);
+    /* Glass effect */
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --accent-color: #38bdf8;
     --accent-gradient: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
-    
+
     /* Status Colors */
     --status-courtesy: #22c55e;
     --status-cancelled: #ef4444;
     --status-warning: #f59e0b;
-    
+
     /* Spacing */
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -25,7 +26,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background-image: 
+    background-image:
         radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
 }
@@ -55,6 +56,7 @@ h1 {
     margin: 0;
     background: var(--accent-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -108,7 +110,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--spacing-sm);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding-bottom: var(--spacing-sm);
 }
 
@@ -156,6 +158,7 @@ h1 {
 .type-courtesy {
     border-left: 4px solid var(--status-courtesy);
 }
+
 .type-courtesy .price-tag {
     color: var(--status-courtesy);
 }
@@ -165,6 +168,7 @@ h1 {
     opacity: 0.6;
     border: 1px dashed var(--status-cancelled);
 }
+
 .status-cancelled .product-name {
     text-decoration: line-through;
     color: var(--status-cancelled);
@@ -178,19 +182,39 @@ h1 {
 
 /* Animations */
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes highlight {
-    0% { background-color: rgba(56, 189, 248, 0.2); }
-    100% { background-color: var(--card-bg); }
+    0% {
+        background-color: rgba(56, 189, 248, 0.2);
+    }
+
+    100% {
+        background-color: var(--card-bg);
+    }
 }
 
 .highlight-new {

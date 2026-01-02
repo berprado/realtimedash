@@ -1,76 +1,52 @@
-# MySQL Realtime Fetching with SSE
+# MySQL Realtime Fetching with SSE (Professional Dashboard)
 
-This project demonstrates a real-time data dashboard using PHP, MySQL, and Server-Sent Events (SSE). It fetches data from a database and updates the frontend automatically without page reloads.
+This project is a high-end, real-time sales dashboard designed for hospitality environments. It uses PHP, MySQL, and Server-Sent Events (SSE) to fetch data instantly, presenting it in a visually striking "Dark/Glassmorphism" interface with intelligent status logic and audio alerts.
 
 ## 🚀 Features
 
-- **Real-time Updates**: Uses Server-Sent Events (SSE) to push updates from the server to the client.
-- **Efficient Polling**: The PHP script checks for changes in the database and only sends data when a change is detected.
-- **Dynamic Frontend**: Updates the HTML table dynamically using JavaScript.
-- **Multi-Environment Support**: Easily switch between Local (Test) and Remote (Production) database configurations.
+-   **Real-time Updates**: Uses SSE to push updates automatically (no refresh needed).
+-   **Professional UI**: Dark theme, responsive grid, glassmorphism effects, and animations.
+-   **Smart Logic**:
+    -   **Intelligent Icons**: Automatically maps product names to icons (e.g., "V " -> 🍷, "CHOPP " -> 🍺).
+    -   **Visual Statuses**: Multi-column validation to show icons for "Courtesies", "Sales", or "Annullments" without cluttering text.
+-   **Audio Alerts**: Plays a subtle sound when a new order arrives.
+-   **Multi-Environment**: Easy switch between Local (Test) and Remote (Production) databases via `.env`.
 
 ## 🛠️ Technologies
 
-- **Frontend**: HTML5, CSS3, JavaScript (EventSource API).
-- **Backend**: PHP.
-- **Database**: MySQL.
+-   **Frontend**: HTML5, Modern CSS3 (Variables, Grid, keyframes), JavaScript (ES6+).
+-   **Assets**: Google Fonts (Oswald, Inter), Google Material Symbols.
+-   **Backend**: PHP 7.x/8.x.
+-   **Database**: MySQL 5.6.12+ (Requires `comandas_v6` view).
 
 ## 📂 File Structure
 
-- `index.html`: The main interface functioning as the dashboard. It connects to the SSE stream and updates the table.
-- `fetch.php`: The server-side script that acts as the SSE endpoint. It continuously checks the database for new or modified records.
-- `db_connection.php`: Handles the MySQL database connection. It intelligently selects credentials based on the active environment (`APP_ENV`).
-- `.env`: Configuration file for database credentials and environment definition.
+-   `index.html`: Main dashboard with JS logic for prefixes, icons, and SSE handling.
+-   `style.css`: Contains the Dark Theme styling, animations, and responsive rules.
+-   `fetch.php`: SSE endpoint. Queries the `comandas_v6` view.
+-   `db_connection.php`: Database connection handler (Multi-env support).
+-   `docs/sql/comandas_v6.sql`: SQL definition for the required database view.
 
 ## ⚙️ Setup & Configuration
 
-### 1. Environment Setup
-The project supports two environments: **Test** (Local) and **Production** (Remote).
+### 1. Database Check
+Ensure the view `comandas_v6` is created in your database using the provided SQL file in `docs/sql/`.
 
-1.  Copy the example configuration:
-    ```bash
-    cp .env.example .env
-    ```
-2.  Edit `.env` to configure your environments.
-
-### 2. Configuration Options (.env)
-
-You can switch between environments by changing the `APP_ENV` variable.
-
-**Option A: Test Environment (Local)**
-Set `APP_ENV=test`. This uses the `TEST_` variables (Standard port 3306).
-
-```ini
-APP_ENV=test
-
-TEST_DB_HOST=localhost
-TEST_DB_USER=root
-...
-```
-
-**Option B: Production Environment (Remote)**
-Set `APP_ENV=production`. This uses the `PROD_` variables and supports custom ports (e.g., for TCP tunnels).
+### 2. Environment (.env)
+Configure your `.env` file for **test** or **production**:
 
 ```ini
 APP_ENV=production
-
-PROD_DB_HOST=backapp.localto.net
-PROD_DB_PORT=1790
-PROD_DB_USER=root
-...
+# ... credentials ...
 ```
 
-### 3. Running the Project
-- Deploy the files to a PHP-compatible web server (e.g., Apache, Nginx, or local XAMPP/WAMP).
-- Access `index.html` in your browser.
-- The dashboard will automatically connect to the database defined by `APP_ENV` and start streaming data.
+### 3. Logic Customization (index.html)
+The dashboard includes specific business logic in the JavaScript section of `index.html`:
+-   **Prefix Mapping**: Modify `processProductInfo()` to add new rules (e.g., "TRAGO " -> icon).
+-   **Status Rules**: Modify `getStatusInfo()` to change how conditions (e.g., CORTESIA + IMPRESO) are visualized.
 
 ## 📝 Usage
 
-The dashboard displays:
-- **Comanda**: Order ID.
-- **Producto**: Product name.
-- **Total**: Subtotal amount.
-- **Usuario**: User who registered the order.
-
-Records are fetched for the latest operation ID found in `bar_comanda`.
+Open `index.html` in a browser (or `http://localhost/path/to/project`).
+-   **New Orders**: Will appear with a slide-in animation and a sound alert.
+-   **Status**: Look for the icons (🎁 Gift, ✔️ Check, 🚫 Block) to identify order status quickly.
