@@ -9,7 +9,8 @@
     --accent-gradient: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
 
     /* Status Colors */
-    --status-courtesy: #22c55e;
+    --status-courtesy: #d50075;
+    --status-sale: #47db95;
     --status-cancelled: #ef4444;
     --status-warning: #f59e0b;
 
@@ -161,6 +162,15 @@ h1 {
 
 .type-courtesy .price-tag {
     color: var(--status-courtesy);
+}
+
+/* Logic: Sale */
+.status-sale {
+    border-left: 4px solid var(--status-sale);
+}
+
+.status-sale .price-tag {
+    color: var(--status-sale);
 }
 
 /* Logic: Cancelled */

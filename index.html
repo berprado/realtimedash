@@ -150,6 +150,14 @@
                     // comandas_v6 HAS estado_impresion. So we are good.
                     const status = getStatusInfo(item.tipo_salida, item.estado_comanda, item.estado_impresion);
 
+                    // Courtesy Price Logic
+                    // If it's a courtesy, show the 'before' price so they know what value they gave away.
+                    // Otherwise show the actual transaction sub_total (which might be 0 for courtesy in DB, but we want the visual reference)
+                    let displayPrice = item.sub_total;
+                    if (status.class === 'type-courtesy') {
+                        displayPrice = item.cor_subtotal_anterior;
+                    }
+
                     let cardClasses = `order-card ${status.class}`;
                     if (parseInt(item.id_comanda) > lastComandaId && lastComandaId !== 0) {
                         cardClasses += ' highlight-new';
@@ -176,7 +184,7 @@
                                 <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">schedule</span>
                                 ${item.fecha_emision ? item.fecha_emision.split(' ')[1] : '--:--'}
                             </span>
-                            <span class="price-tag">${formatCurrency(item.sub_total)}</span>
+                            <span class="price-tag">${formatCurrency(displayPrice)}</span>
                         </div>
                         <div style="font-size:0.8rem; color: #64748b; margin-top:5px; text-align:right;">
                              ${item.usuario_reg || 'Staff'}

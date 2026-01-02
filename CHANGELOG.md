@@ -8,6 +8,8 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
 -   **Professional Dashboard UI**: Complete redesign using Dark Mode, simple Glassmorphism, and responsive Card Grid.
 -   **style.css**: New stylesheet with CSS Variables for theming (prepared for future Light Mode).
 -   **Smart Icons Logic**: Frontend JS automatically assigns icons based on product prefixes (`V `, `C `, `CHOPP `, etc.).
+-   **Courtesy Logic Refinement**: Now displays the opportunity cost (`cor_subtotal_anterior`) instead of 0.00 for courtesies.
+-   **Visual Identity**: Updated color palette: Sales (Green `#47db95`), Courtesies (Magenta `#d50075`).
 -   **Advanced Status Logic**: Visual mapping for "Cortesía", "Venta", "Anulado", and "Pendiente" based on `tipo_salida`, `estado_comanda` and `estado_impresion`.
 -   **Audio Alerts**: Implemented a "beep" notification when a new `id_comanda` is detected.
 -   **Database View**: Integrated `comandas_v6` view in `fetch.php` for cleaner query logic.
