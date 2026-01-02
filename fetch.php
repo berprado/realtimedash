@@ -10,22 +10,7 @@ include("db_connection.php");
 $p = '';
 while(true){
 // now fetch data from database
-$result = $con->query("SELECT
-dcs.*,
-c.id_operacion,
-COALESCE(p.nombre, cc.nombre) AS nombre,
-COALESCE(dcs.id_producto, dcs.id_bar_combo_coctel) AS id_producto_combo,
-c.tipo_salida,
-c.estado_comanda,
-c.estado_impresion,
-cc.codigo
-FROM bar_detalle_comanda_salida dcs
-INNER JOIN bar_comanda c ON dcs.id_comanda = c.id
-LEFT OUTER JOIN alm_producto p ON dcs.id_producto = p.id
-LEFT OUTER JOIN bar_combo_coctel cc ON dcs.id_bar_combo_coctel = cc.id
-WHERE c.id_operacion = (
-SELECT MAX(id_operacion) FROM bar_comanda
-) ORDER BY dcs.id_comanda DESC;");
+$result = $con->query("SELECT * FROM comandas_v6 ORDER BY id DESC");
 $r = array();
 if($result->num_rows > 0){
     while($row = $result-> fetch_assoc()){
