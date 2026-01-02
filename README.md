@@ -28,7 +28,20 @@ This project demonstrates a real-time data dashboard using PHP, MySQL, and Serve
     - Update the `$server`, `$user`, `$pass`, and `$database` variables with your MySQL credentials.
     - Ensure the target database (default: `adminerp`) exists and has the required tables (`bar_detalle_comanda_salida`, `bar_comanda`, etc.) as queried in `fetch.php`.
 
-2.  **Running the Project**:
+2.  **Environment Setup**:
+    - Copy `.env.example` to `.env`:
+      ```bash
+      cp .env.example .env
+      ```
+    - Edit `.env` and fill in your database credentials:
+      ```ini
+      DB_HOST=localhost
+      DB_USER=root
+      DB_PASS=your_password
+      DB_NAME=your_database
+      ```
+
+3.  **Running the Project**:
     - Deploy the files to a PHP-compatible web server (e.g., Apache, Nginx, or local XAMPP/WAMP).
     - Access `index.html` in your browser.
 
