@@ -58,6 +58,9 @@ if(!$con){
     die('Server not connected: ' . mysqli_connect_error());
 }
 
+// Set charset to utf8 to handle accents and ñ correctly
+mysqli_set_charset($con, "utf8");
+
 // mysqli_connect with 4th param selects DB, but keeping the check if needed
 // though strictly selecting it again is redundant if passed to connect.
 // To be safe and minimal change:
