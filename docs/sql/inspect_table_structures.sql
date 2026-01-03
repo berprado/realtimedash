@@ -1,4 +1,4 @@
--- Query to inspect the structure of tables used by the 'comandas_v6' view.
+-- Query to inspect the structure of tables used by the 'comandas_v6' view, plus 'master_table'.
 -- Run this in your MySQL client (e.g., PHPMyAdmin, HeidiSQL, or CLI).
 
 SELECT 
@@ -21,7 +21,8 @@ WHERE
         'alm_producto', 
         'bar_combo_coctel', 
         'alm_categoria', 
-        'parameter_table'
+        'parameter_table',
+        'master_table'
     )
 ORDER BY 
     TABLE_NAME, 
