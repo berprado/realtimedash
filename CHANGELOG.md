@@ -29,3 +29,4 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
     -   Added "Pending" status styling (Yellow `#facc15`).
     -   Updated Live Feed animation to Green.
     -   Added Date to timestamp and User Profile icon.
+    -   **Reliability Logic**: Extended "Sale" status to include all `PROCESADO` orders even if `estado_impresion` is NULL (fixes "Undefined" icon issue).

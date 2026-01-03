@@ -44,6 +44,7 @@ APP_ENV=production
 The dashboard includes specific business logic in the JavaScript section of `index.html`:
 -   **Prefix Mapping**: Modify `processProductInfo()` to add new rules (e.g., "TRAGO " -> icon).
 -   **Status Rules**: Modify `getStatusInfo()` to change how conditions (e.g., CORTESIA + IMPRESO) are visualized.
+-   **Reliability**: The system treats `PROCESADO` orders as confirmed sales even if the printer status is NULL, to handle POS inconsistencies.
 
 ## 📝 Usage
 

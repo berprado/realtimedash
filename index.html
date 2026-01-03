@@ -92,9 +92,10 @@
                 return { class: 'type-courtesy', icon: 'money_off', label: '' }; // Only icon requested
             }
 
-            // 2. VENTA PROCESADO IMPRESO
-            if (type === 'VENTA' && state === 'PROCESADO' && print === 'IMPRESO') {
-                return { class: 'status-sale', icon: 'price_check', label: '' }; // Only icon
+            // 2. VENTA PROCESADO (IMPRESO or NULL)
+            // Relaxed rule: If it's processed, it's a sale. We don't care if the printer confirmed it in the DB.
+            if (type === 'VENTA' && state === 'PROCESADO') {
+                return { class: 'status-sale', icon: 'price_check', label: '' };
             }
 
             // 3. VENTA ANULADO (null)
