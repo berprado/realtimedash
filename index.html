@@ -174,19 +174,20 @@
                         </div>
                         
                         <div class="product-name">
-                            ${parseFloat(item.cantidad) > 1 ? `<span style="color:var(--accent-color);">${Math.round(item.cantidad)}x</span> ` : ''}
                             <span class="material-symbols-outlined" style="font-size: 1.2em; vertical-align: text-bottom; margin-right:4px;">${product.icon}</span>
                             ${product.name}
+                            ${parseFloat(item.cantidad) > 1 ? `<span style="color:var(--accent-color); margin-left:5px;">x${Math.round(item.cantidad)}</span>` : ''}
                         </div>
 
                         <div class="product-meta">
                             <span class="timestamp">
                                 <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">schedule</span>
-                                ${item.fecha_emision ? item.fecha_emision.split(' ')[1] : '--:--'}
+                                ${item.fecha_emision || '--:--'}
                             </span>
                             <span class="price-tag">${formatCurrency(displayPrice)}</span>
                         </div>
                         <div style="font-size:0.8rem; color: #64748b; margin-top:5px; text-align:right;">
+                             <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">account_circle</span>
                              ${item.usuario_reg || 'Staff'}
                         </div>
                     </div>

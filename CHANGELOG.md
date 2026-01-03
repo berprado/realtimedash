@@ -24,3 +24,8 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
 -   Resolved inconsistency between `.env` configuration and actual database connection code.
 -   Fixed data fetching to include `cantidad` and `usuario` which were missing in the original implementation.
 -   **Character Encoding**: Fixed issue with special characters (ñ, accents) not displaying by enforcing `utf8` charset in `db_connection.php`.
+-   **Visual Refinements v2.3**:
+    -   Quantity display moved to the end of product name (e.g. `Product x2`).
+    -   Added "Pending" status styling (Yellow `#facc15`).
+    -   Updated Live Feed animation to Green.
+    -   Added Date to timestamp and User Profile icon.
