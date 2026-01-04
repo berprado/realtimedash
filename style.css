@@ -72,12 +72,34 @@ h1 {
     color: var(--text-secondary);
 }
 
+/* Connection Status Indicators */
 .pulsating-circle {
     width: 10px;
     height: 10px;
-    background-color: var(--status-sale);
     border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.status-connected {
+    background-color: var(--status-sale);
     animation: pulse 2s infinite;
+}
+
+.status-reconnecting {
+    background-color: var(--status-warning);
+    animation: pulse-fast 0.5s infinite;
+}
+
+.status-disconnected {
+    background-color: var(--status-cancelled);
+    animation: none;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+@keyframes pulse-fast {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
 }
 
 /* Grid Layout for Cards */

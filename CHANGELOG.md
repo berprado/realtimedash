@@ -30,3 +30,7 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
     -   Updated Live Feed animation to Green.
     -   Added Date to timestamp and User Profile icon.
     -   **Reliability Logic**: Extended "Sale" status to include all `PROCESADO` orders even if `estado_impresion` is NULL (fixes "Undefined" icon issue).
+    -   **Connection Health Monitor (v2.5)**: Implemented 3-state real-time connection status:
+        -   🟢 LIVE FEED: Normal operation.
+        -   🟡 RECONECTANDO...: Immediate feedback on signal loss.
+        -   🔴 SIN CONEXIÓN: Critical alert after 5s of downtime.

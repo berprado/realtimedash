@@ -10,6 +10,7 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
     -   **Intelligent Icons**: Automatically maps product names to icons (e.g., "V " -> 🍷, "CHOPP " -> 🍺).
     -   **Visual Statuses**: Multi-column validation to show icons for "Courtesies", "Sales", or "Annullments" without cluttering text.
 -   **Audio Alerts**: Plays a subtle sound when a new order arrives.
+-   **Connection Health Monitor**: Visual feedback for connection state (🟢 Connected, 🟡 Reconnecting, 🔴 Disconnected) to handle network instability gracefully.
 -   **Multi-Environment**: Easy switch between Local (Test) and Remote (Production) databases via `.env`.
 
 ## 🛠️ Technologies

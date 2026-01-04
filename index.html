@@ -34,8 +34,8 @@
         <header>
             <h1>Backstage <span style="font-weight: 300; font-size: 0.8em; opacity: 0.8;">Online</span></h1>
             <div class="status-indicator">
-                <div class="pulsating-circle"></div>
-                LIVE FEED
+                <div class="pulsating-circle" id="status-circle"></div>
+                <span id="status-text">LIVE FEED</span>
             </div>
         </header>
 
@@ -46,125 +46,97 @@
     </div>
 
     <script>
+        // --- Global Variables ---
         const container = document.getElementById('orders-container');
         const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+        let lastComandaId = 0;
 
-        let lastComandaId = 0; // Tracking id_comanda
+        // --- Helper Functions ---
 
-        // Function to format currency
         function formatCurrency(amount) {
             return new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB' }).format(amount);
         }
 
-        // Logic: Process Product Name & Icon based on Prefixes
         function processProductInfo(originalName) {
             let name = originalName || '';
-            let icon = 'local_drink'; // Default icon
+            let icon = 'local_drink';
 
-            if (name.startsWith('C ')) {
-                name = name.substring(2);
-                icon = 'liquor';
-            } else if (name.startsWith('V ')) {
-                name = name.substring(2);
-                icon = 'wine_bar';
-            } else if (name.startsWith('CHOPP ')) {
-                name = name.substring(6);
-                icon = 'sports_bar';
-            } else if (name.startsWith('JARRA ')) {
-                name = name.substring(6);
-                icon = 'kettle';
-            } else if (name.startsWith('MOCKTAIL ')) {
-                name = name.substring(9);
-                icon = 'no_drinks';
-            }
-            // Default case: keeps original name + local_drink icon
+            if (name.startsWith('C ')) { name = name.substring(2); icon = 'liquor'; }
+            else if (name.startsWith('V ')) { name = name.substring(2); icon = 'wine_bar'; }
+            else if (name.startsWith('CHOPP ')) { name = name.substring(6); icon = 'sports_bar'; }
+            else if (name.startsWith('JARRA ')) { name = name.substring(6); icon = 'kettle'; }
+            else if (name.startsWith('MOCKTAIL ')) { name = name.substring(9); icon = 'no_drinks'; }
+
             return { name, icon };
         }
 
-        // Logic: Determine Status Visuals based on 3 columns
-        function getStatusInfo(ts, ec, ei) {
-            const type = (ts || '').toUpperCase();
-            const state = (ec || '').toUpperCase();
-            const print = (ei || '').toUpperCase(); // ei can be null/undefined
+        function getStatusInfo(type, state, print) {
+            const normalizedType = (type || '').toUpperCase();
+            const normalizedState = (state || '').toUpperCase();
+            const normalizedPrint = (print || '').toUpperCase();
 
-            // 1. CORTESIA PROCESADO IMPRESO
-            if (type === 'CORTESIA' && state === 'PROCESADO' && print === 'IMPRESO') {
-                return { class: 'type-courtesy', icon: 'money_off', label: '' }; // Only icon requested
+            // 1. CORTESIA PROCESADO (IMPRESO or NULL)
+            if (normalizedType === 'CORTESIA' && normalizedState === 'PROCESADO') {
+                return { class: 'type-courtesy', icon: 'money_off', label: '' };
             }
-
             // 2. VENTA PROCESADO (IMPRESO or NULL)
-            // Relaxed rule: If it's processed, it's a sale. We don't care if the printer confirmed it in the DB.
-            if (type === 'VENTA' && state === 'PROCESADO') {
+            if (normalizedType === 'VENTA' && normalizedState === 'PROCESADO') {
                 return { class: 'status-sale', icon: 'price_check', label: '' };
             }
-
-            // 3. VENTA ANULADO (null)
-            // Checking if print is 'null' string or empty/undefined. API might return null object or empty string.
-            if (type === 'VENTA' && state === 'ANULADO' && (!print || print === 'NULL')) {
+            // 3. VENTA ANULADO
+            if (normalizedType === 'VENTA' && normalizedState === 'ANULADO') {
                 return { class: 'status-cancelled', icon: 'remove_done', label: '' };
             }
-
-            // 4. VENTA PENDIENTE (null)
-            if (type === 'VENTA' && state === 'PENDIENTE' && (!print || print === 'NULL')) {
+            // 4. VENTA PENDIENTE
+            if (normalizedType === 'VENTA' && normalizedState === 'PENDIENTE') {
                 return { class: 'status-pending', icon: 'pending_actions', label: '' };
             }
-
-            // Default: INDEJINIDO
             return { class: 'status-undefined', icon: 'question_mark', label: '' };
         }
 
-        var source = new EventSource("fetch.php");
+        // --- Core Logic Variables & Functions ---
 
-        source.onmessage = function (event) {
-            try {
-                const data = JSON.parse(event.data);
+        const statusCircle = document.getElementById('status-circle');
+        const statusText = document.getElementById('status-text');
+        let disconnectTimer = null;
 
-                container.innerHTML = '';
+        function updateConnectionState(state) {
+            statusCircle.classList.remove('status-connected', 'status-reconnecting', 'status-disconnected');
+            if (state === 'connected') {
+                statusCircle.classList.add('status-connected');
+                statusText.textContent = 'LIVE FEED';
+                statusText.style.color = 'var(--text-secondary)';
+            } else if (state === 'reconnecting') {
+                statusCircle.classList.add('status-reconnecting');
+                statusText.textContent = 'RECONECTANDO...';
+                statusText.style.color = 'var(--status-warning)';
+            } else if (state === 'disconnected') {
+                statusCircle.classList.add('status-disconnected');
+                statusText.textContent = 'SIN CONEXIÓN';
+                statusText.style.color = 'var(--status-cancelled)';
+            }
+        }
 
-                let maxIdInBatch = 0;
+        function processData(data) {
+            container.innerHTML = '';
+            let maxIdInBatch = 0;
+            let hasNewOrders = false;
 
-                if (data.length > 0) {
-                    // Assuming sorted by ID DESC, so first is newest
-                    const newestItem = data[0];
+            data.forEach(item => {
+                const currentComandaId = parseInt(item.id_comanda);
+                if (currentComandaId > lastComandaId) hasNewOrders = true;
+                if (currentComandaId > maxIdInBatch) maxIdInBatch = currentComandaId;
 
-                    // Audio Alert Logic based on id_comanda
-                    const currentComandaId = parseInt(newestItem.id_comanda);
+                const product = processProductInfo(item.nombre);
+                const status = getStatusInfo(item.tipo_salida, item.estado_comanda, item.estado_impresion);
 
-                    if (lastComandaId !== 0 && currentComandaId > lastComandaId) {
-                        audio.play().catch(e => console.log('Audio autoplay blocked', e));
-                    }
+                let displayPrice = item.sub_total;
+                if (status.class === 'type-courtesy') displayPrice = item.cor_subtotal_anterior;
 
-                    // Update tracker
-                    // We track the max ID present in the batch to avoid re-triggering on same data
-                    // Note: using the loop to find absolute max just in case, though index 0 should be it.
-                    maxIdInBatch = currentComandaId;
-                }
+                let cardClasses = `order-card ${status.class}`;
+                if (currentComandaId > lastComandaId && lastComandaId !== 0) cardClasses += ' highlight-new';
 
-                data.forEach(item => {
-                    // Process Product Name (Prefixes)
-                    const product = processProductInfo(item.nombre);
-
-                    // Process Status
-                    // Assuming fetch.php returns fields as: tipo_salida, estado_comanda, estado_impresion
-                    // Note: estado_impresion might need to move to SELECT list in fetch.php if not there.
-                    // Checking previous fetch.php content... it blindly does SELECT * FROM comandas_v6
-                    // comandas_v6 HAS estado_impresion. So we are good.
-                    const status = getStatusInfo(item.tipo_salida, item.estado_comanda, item.estado_impresion);
-
-                    // Courtesy Price Logic
-                    // If it's a courtesy, show the 'before' price so they know what value they gave away.
-                    // Otherwise show the actual transaction sub_total (which might be 0 for courtesy in DB, but we want the visual reference)
-                    let displayPrice = item.sub_total;
-                    if (status.class === 'type-courtesy') {
-                        displayPrice = item.cor_subtotal_anterior;
-                    }
-
-                    let cardClasses = `order-card ${status.class}`;
-                    if (parseInt(item.id_comanda) > lastComandaId && lastComandaId !== 0) {
-                        cardClasses += ' highlight-new';
-                    }
-
-                    const cardHTML = `
+                const cardHTML = `
                     <div class="${cardClasses}">
                         <div class="card-header">
                             <span class="order-id">#${item.id_comanda || '???'}</span>
@@ -173,13 +145,11 @@
                                 ${status.label}
                             </span>
                         </div>
-                        
                         <div class="product-name">
                             <span class="material-symbols-outlined" style="font-size: 1.2em; vertical-align: text-bottom; margin-right:4px;">${product.icon}</span>
                             ${product.name}
                             ${parseFloat(item.cantidad) > 1 ? `<span style="color:var(--accent-color); margin-left:5px;">x${Math.round(item.cantidad)}</span>` : ''}
                         </div>
-
                         <div class="product-meta">
                             <span class="timestamp">
                                 <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">schedule</span>
@@ -193,18 +163,55 @@
                         </div>
                     </div>
                 `;
+                container.innerHTML += cardHTML;
+            });
 
-                    container.innerHTML += cardHTML;
-                });
+            if (maxIdInBatch > 0) {
+                if (hasNewOrders && lastComandaId > 0) audio.play().catch(e => console.log('Audio autoplay blocked', e));
+                lastComandaId = maxIdInBatch;
+            }
+        }
 
-                if (maxIdInBatch > 0) {
-                    lastComandaId = maxIdInBatch;
-                }
+        async function fetchData() {
+            try {
+                const response = await fetch('fetch.php');
+                const data = await response.json();
+                processData(data);
+            } catch (error) {
+                console.error("Error fetching initial data connection check:", error);
+            }
+        }
 
+        // --- Initialization ---
+
+        fetchData(); // Initial conventional fetch
+
+        const source = new EventSource('fetch.php'); // SSE Connection
+
+        source.onopen = function () {
+            console.log("SSE Connected");
+            if (disconnectTimer) clearTimeout(disconnectTimer);
+            updateConnectionState('connected');
+        };
+
+        source.onmessage = function (event) {
+            try {
+                const data = JSON.parse(event.data);
+                processData(data);
             } catch (e) {
                 console.error("Error parsing SSE data", e);
             }
-        }
+        };
+
+        source.onerror = function () {
+            console.warn("SSE Connection Lost");
+            updateConnectionState('reconnecting');
+            if (!disconnectTimer) {
+                disconnectTimer = setTimeout(() => {
+                    updateConnectionState('disconnected');
+                }, 5000);
+            }
+        };
     </script>
 </body>
 
