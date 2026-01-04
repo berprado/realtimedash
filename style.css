@@ -97,9 +97,17 @@ h1 {
 }
 
 @keyframes pulse-fast {
-    0% { opacity: 1; }
-    50% { opacity: 0.4; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 /* Grid Layout for Cards */
@@ -261,4 +269,24 @@ h1 {
 
 .highlight-new {
     animation: highlight 2s ease-out;
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    /* Span all columns */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    opacity: 0.6;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.empty-state .material-symbols-outlined {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
 }

@@ -34,3 +34,4 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
         -   🟢 LIVE FEED: Normal operation.
         -   🟡 RECONECTANDO...: Immediate feedback on signal loss.
         -   🔴 SIN CONEXIÓN: Critical alert after 5s of downtime.
+    -   **Empty State UI (v2.6)**: Added a friendly placeholder ("Todo tranquilo por ahora...") when there are no active orders, preventing a "broken" blank screen experience.

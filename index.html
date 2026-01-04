@@ -119,6 +119,18 @@
 
         function processData(data) {
             container.innerHTML = '';
+
+            // Empty State Check
+            if (!data || data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <span class="material-symbols-outlined">inbox</span>
+                        <p>Todo tranquilo por ahora...</p>
+                    </div>
+                `;
+                return;
+            }
+
             let maxIdInBatch = 0;
             let hasNewOrders = false;
 
