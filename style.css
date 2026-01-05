@@ -39,17 +39,103 @@ body {
     padding: var(--spacing-md);
 }
 
-/* Header Styles */
+/* Header Styles (Sticky & Glassmorphism) */
 header {
+    position: sticky;
+    top: 10px;
+    /* Slight offset */
+    z-index: 1000;
+
     display: flex;
+    flex-wrap: wrap;
+    /* Allow metrics to wrap on small screens */
     justify-content: space-between;
     align-items: center;
+    gap: var(--spacing-md);
+
     margin-bottom: var(--spacing-lg);
     padding: var(--spacing-md);
     background: var(--card-bg);
     border-radius: 1rem;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Metrics Container */
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    flex-grow: 1;
+    /* Take simplified space */
+    max-width: 800px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 2px solid transparent;
+    /* default */
+}
+
+/* Stat specific styling */
+#stat-sales {
+    border-left-color: var(--status-sale);
+}
+
+#stat-avg {
+    border-left-color: var(--accent-color);
+}
+
+#stat-courtesy {
+    border-left-color: var(--status-courtesy);
+}
+
+#stat-void {
+    border-left-color: var(--status-cancelled);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-count {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+/* Mobile Responsive Metrics */
+@media (max-width: 900px) {
+    header {
+        position: relative;
+        /* On very small screens sticky might take too much height */
+    }
+
+    .metrics-container {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+@media (min-width: 901px) {
+    header {
+        position: sticky;
+    }
 }
 
 h1 {
@@ -70,6 +156,11 @@ h1 {
     gap: var(--spacing-sm);
     font-size: 0.9rem;
     color: var(--text-secondary);
+    /* Layout stability */
+    min-width: 155px;
+    white-space: nowrap;
+    justify-content: flex-start;
+    /* Or center? Left aligned looks better with icon */
 }
 
 /* Connection Status Indicators */

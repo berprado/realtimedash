@@ -35,3 +35,8 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
         -   🟡 RECONECTANDO...: Immediate feedback on signal loss.
         -   🔴 SIN CONEXIÓN: Critical alert after 5s of downtime.
     -   **Empty State UI (v2.6)**: Added a friendly placeholder ("Todo tranquilo por ahora...") when there are no active orders, preventing a "broken" blank screen experience.
+    -   **Sticky Metrics Header (v2.7)**: Added a real-time analytics panel in the header (Sticky position):
+        -   **Ventas**: Shows total amount and order count.
+        -   **Promedio**: Calculates average ticket price dynamically.
+        -   **Cortesías**: Tracks opportunity cost of complimentary items.
+        -   **Anuladas**: Counts voided orders for quick auditing.

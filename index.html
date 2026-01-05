@@ -37,6 +37,29 @@
                 <div class="pulsating-circle" id="status-circle"></div>
                 <span id="status-text">LIVE FEED</span>
             </div>
+
+            <!-- Metrics Panel -->
+            <div class="metrics-container">
+                <div class="stat-item" id="stat-sales">
+                    <span class="stat-label">Ventas</span>
+                    <span class="stat-value">Bs 0</span>
+                    <span class="stat-count">0 Comandas</span>
+                </div>
+                <div class="stat-item" id="stat-avg">
+                    <span class="stat-label">Ticket Promedio</span>
+                    <span class="stat-value">Bs 0</span>
+                </div>
+                <div class="stat-item type-courtesy" id="stat-courtesy">
+                    <span class="stat-label">Cortesías</span>
+                    <span class="stat-value">Bs 0</span>
+                    <span class="stat-count">0 Comandas</span>
+                </div>
+                <div class="stat-item type-void" id="stat-void">
+                    <span class="stat-label">Anuladas</span>
+                    <span class="stat-value">0</span>
+                    <span class="stat-count">Comandas</span>
+                </div>
+            </div>
         </header>
 
         <!-- Grid Container for Orders -->
@@ -117,7 +140,67 @@
             }
         }
 
+        function calculateMetrics(data) {
+            let totalSales = 0;
+            let totalCourtesy = 0;
+
+            // Sets to track unique counts
+            const uniqueSalesIds = new Set();
+            const uniqueCourtesyIds = new Set();
+            const uniqueVoidIds = new Set();
+
+            data.forEach(item => {
+                const type = (item.tipo_salida || '').toUpperCase();
+                const state = (item.estado_comanda || '').toUpperCase();
+                const comandaId = item.id_comanda;
+
+                // 1. Sales (VENTA + PROCESADO)
+                if (type === 'VENTA' && state === 'PROCESADO') {
+                    totalSales += parseFloat(item.sub_total || 0);
+                    uniqueSalesIds.add(comandaId);
+                }
+
+                // 2. Courtesy (CORTESIA + PROCESADO)
+                if (type === 'CORTESIA' && state === 'PROCESADO') {
+                    totalCourtesy += parseFloat(item.cor_subtotal_anterior || 0);
+                    uniqueCourtesyIds.add(comandaId);
+                }
+
+                // 3. Void (ANULADO)
+                if (state === 'ANULADO') {
+                    uniqueVoidIds.add(comandaId);
+                }
+            });
+
+            // DOM Updates
+            const salesEl = document.querySelector('#stat-sales');
+            if (salesEl) {
+                salesEl.querySelector('.stat-value').innerText = formatCurrency(totalSales);
+                salesEl.querySelector('.stat-count').innerText = `${uniqueSalesIds.size} Comandas`;
+            }
+
+            const avgTicket = uniqueSalesIds.size > 0 ? (totalSales / uniqueSalesIds.size) : 0;
+            const avgEl = document.querySelector('#stat-avg');
+            if (avgEl) {
+                avgEl.querySelector('.stat-value').innerText = formatCurrency(avgTicket);
+            }
+
+            const courtesyEl = document.querySelector('#stat-courtesy');
+            if (courtesyEl) {
+                courtesyEl.querySelector('.stat-value').innerText = formatCurrency(totalCourtesy);
+                courtesyEl.querySelector('.stat-count').innerText = `${uniqueCourtesyIds.size} Comandas`;
+            }
+
+            const voidEl = document.querySelector('#stat-void');
+            if (voidEl) {
+                voidEl.querySelector('.stat-value').innerText = uniqueVoidIds.size;
+            }
+        }
+
         function processData(data) {
+            // Calculate Metrics first
+            calculateMetrics(data || []);
+
             container.innerHTML = '';
 
             // Empty State Check
@@ -200,9 +283,12 @@
 
         const source = new EventSource('fetch.php'); // SSE Connection
 
+        let reconnectTimeout = null;
+
         source.onopen = function () {
             console.log("SSE Connected");
             if (disconnectTimer) clearTimeout(disconnectTimer);
+            if (reconnectTimeout) clearTimeout(reconnectTimeout); // Cancel pending yellow state
             updateConnectionState('connected');
         };
 
@@ -216,12 +302,18 @@
         };
 
         source.onerror = function () {
-            console.warn("SSE Connection Lost");
-            updateConnectionState('reconnecting');
+            // console.warn("SSE Connection Lost");
+            // Add slight delay before showing yellow to avoid flickering on normal fetching cycles
+            if (!reconnectTimeout) {
+                reconnectTimeout = setTimeout(() => {
+                    updateConnectionState('reconnecting');
+                }, 2000); // 2 seconds tolerance for "blips"
+            }
+
             if (!disconnectTimer) {
                 disconnectTimer = setTimeout(() => {
                     updateConnectionState('disconnected');
-                }, 5000);
+                }, 7000); // 5s + 2s buffer
             }
         };
     </script>

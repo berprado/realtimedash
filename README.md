@@ -12,6 +12,7 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 -   **Audio Alerts**: Plays a subtle sound when a new order arrives.
 -   **Connection Health Monitor**: Visual feedback for connection state (🟢 Connected, 🟡 Reconnecting, 🔴 Disconnected) to handle network instability gracefully.
 -   **Empty State UI**: Friendly placeholder when no orders are active.
+-   **Sticky Metrics Header**: Real-time analytics (Sales, Average, Courtesies, Voided) pinned to the top for easy monitoring.
 -   **Multi-Environment**: Easy switch between Local (Test) and Remote (Production) databases via `.env`.
 
 ## 🛠️ Technologies
