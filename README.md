@@ -48,6 +48,11 @@ The dashboard includes specific business logic in the JavaScript section of `ind
 -   **Status Rules**: Modify `getStatusInfo()` to change how conditions (e.g., CORTESIA + IMPRESO) are visualized.
 -   **Reliability**: The system treats `PROCESADO` orders as confirmed sales even if the printer status is NULL, to handle POS inconsistencies.
 
+### 4. Data Logic & Behavior
+The dashboard relies on the `comandas_v6` view which filters data by the **latest operation** (`MAX(id_operacion)`).
+-   **Continuous Flow**: When a new operation starts (e.g., next day), the dashboard continues showing the *previous* operation's data until the **first new order** is registered. At that moment, it instantly switches to the new operation.
+-   **Empty State**: The "Empty State" UI is only visible on a fresh installation (Day Zero) or if the `bar_comanda` table is truncated, as there is no "previous operation" to display.
+
 ## 📝 Usage
 
 Open `index.html` in a browser (or `http://localhost/path/to/project`).
