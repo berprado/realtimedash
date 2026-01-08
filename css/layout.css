@@ -1,0 +1,88 @@
+/* Sidebar Layout */
+body {
+    display: flex; /* Sidebar + Content */
+    overflow: hidden; /* Prevent body scroll, handle internally */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 80px; /* Collapsed width by default or icon only */
+    background: var(--card-bg); /* Use existing var */
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    z-index: 2000;
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 250px; /* Expand on hover */
+}
+
+.nav-item {
+    width: 100%;
+    padding: 15px 0; /* Vertical padding */
+    display: flex; /* Centered icon, text hidden initially */
+    justify-content: center; /* Center icon */
+    color: var(--text-secondary); /* From main.css */
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar:hover .nav-item {
+    justify-content: flex-start;
+    padding-left: 25px; /* Indent items on expanded */
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--accent-color);
+}
+
+.nav-item .material-symbols-outlined {
+    font-size: 28px;
+    min-width: 30px; /* Fixed width for icon to prevent jumping */
+}
+
+.nav-label {
+    margin-left: 15px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    pointer-events: none; /* Let clicks pass to item */
+}
+
+.sidebar:hover .nav-label {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* Main Content Area */
+#app-content {
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: auto; /* Scroll ONLY the content */
+    padding: var(--spacing-md);
+    position: relative;
+}
+
+/* Adjustments for existing elements */
+/* Override container from main.css to fit in content area */
+.container {
+    max-width: 1600px; /* Wider view since we have sidebar */
+    margin: 0;
+    padding: 0; /* Content area has padding */
+    height: auto;
+}

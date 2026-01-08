@@ -9,314 +9,88 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Oswald:wght@500;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Oswald:wght@300;400;500&display=swap"
         rel="stylesheet">
-
-    <!-- Google Material Symbols -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
 </head>
 
 <body>
 
-    <!-- Audio Alert (Hidden) -->
-    <!-- Using a short base64 beep for standalone functionality without external file dependencies -->
-    <audio id="alert-sound" src="data:audio/wav;base64,UklGRl9vT1d7ABAAZGF0YU..." preload="auto"></audio>
-    <!-- Note: I will inject a real short beep base64 in the JS or source attr for simplicity. 
-         For now, let's use a standard path or assume the user can provide a file. 
-         To be robust, I'll use a silent placeholder here and handle it in JS or ask user for a path later.
-         Actually, let's use a simple URL or explain the placeholder. -->
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <a href="#" class="nav-item active">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="nav-label">Live Monitor</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="nav-label">Analytics</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">history</span>
+            <span class="nav-label">Historial</span>
+        </a>
+        <div style="flex-grow:1"></div>
+        <a href="#" class="nav-item">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="nav-label">Configuración</span>
+        </a>
+    </nav>
 
-    <div class="container">
-        <header>
-            <h1>Backstage <span style="font-weight: 300; font-size: 0.8em; opacity: 0.8;">Online</span></h1>
-            <div class="status-indicator">
-                <div class="pulsating-circle" id="status-circle"></div>
-                <span id="status-text">LIVE FEED</span>
+    <!-- Main Content Area -->
+    <main id="app-content">
+        <div class="container">
+            <header>
+                <!-- Title & Status -->
+                <div>
+                    <h1 style="line-height:1">Backstage <span
+                            style="font-weight: 300; font-size: 0.8em; opacity: 0.8;">Online</span></h1>
+                    <div class="status-indicator">
+                        <div class="pulsating-circle" id="status-circle"></div>
+                        <span id="status-text">LIVE FEED</span>
+                    </div>
+                </div>
+
+                <!-- Metrics Panel (Controlled by kpi.js) -->
+                <div class="metrics-container">
+                    <div class="stat-item" id="stat-sales">
+                        <span class="stat-label">Ventas</span>
+                        <span class="stat-value">Bs 0</span>
+                        <span class="stat-count">0 Comandas</span>
+                    </div>
+                    <div class="stat-item" id="stat-avg">
+                        <span class="stat-label">Ticket Promedio</span>
+                        <span class="stat-value">Bs 0</span>
+                    </div>
+                    <div class="stat-item type-courtesy" id="stat-courtesy">
+                        <span class="stat-label">Cortesías</span>
+                        <span class="stat-value">Bs 0</span>
+                        <span class="stat-count">0 Comandas</span>
+                    </div>
+                    <div class="stat-item type-void" id="stat-void">
+                        <span class="stat-label">Anuladas</span>
+                        <span class="stat-value">0</span>
+                        <span class="stat-count">Comandas</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Grid Container for Orders (Controlled by monitor.js) -->
+            <div id="orders-container" class="orders-grid">
+                <!-- Cards injected via JS -->
             </div>
-
-            <!-- Metrics Panel -->
-            <div class="metrics-container">
-                <div class="stat-item" id="stat-sales">
-                    <span class="stat-label">Ventas</span>
-                    <span class="stat-value">Bs 0</span>
-                    <span class="stat-count">0 Comandas</span>
-                </div>
-                <div class="stat-item" id="stat-avg">
-                    <span class="stat-label">Ticket Promedio</span>
-                    <span class="stat-value">Bs 0</span>
-                </div>
-                <div class="stat-item type-courtesy" id="stat-courtesy">
-                    <span class="stat-label">Cortesías</span>
-                    <span class="stat-value">Bs 0</span>
-                    <span class="stat-count">0 Comandas</span>
-                </div>
-                <div class="stat-item type-void" id="stat-void">
-                    <span class="stat-label">Anuladas</span>
-                    <span class="stat-value">0</span>
-                    <span class="stat-count">Comandas</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Grid Container for Orders -->
-        <div id="orders-container" class="orders-grid">
-            <!-- Cards will be injected here via JS -->
         </div>
-    </div>
+    </main>
 
-    <script>
-        // --- Global Variables ---
-        const container = document.getElementById('orders-container');
-        const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-        let lastComandaId = 0;
+    <!-- App Entry Point -->
+    <script type="module" src="js/app.js"></script>
 
-        // --- Helper Functions ---
-
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB' }).format(amount);
-        }
-
-        function processProductInfo(originalName) {
-            let name = originalName || '';
-            let icon = 'local_drink';
-
-            if (name.startsWith('C ')) { name = name.substring(2); icon = 'liquor'; }
-            else if (name.startsWith('V ')) { name = name.substring(2); icon = 'wine_bar'; }
-            else if (name.startsWith('CHOPP ')) { name = name.substring(6); icon = 'sports_bar'; }
-            else if (name.startsWith('JARRA ')) { name = name.substring(6); icon = 'kettle'; }
-            else if (name.startsWith('MOCKTAIL ')) { name = name.substring(9); icon = 'no_drinks'; }
-
-            return { name, icon };
-        }
-
-        function getStatusInfo(type, state, print) {
-            const normalizedType = (type || '').toUpperCase();
-            const normalizedState = (state || '').toUpperCase();
-            const normalizedPrint = (print || '').toUpperCase();
-
-            // 1. CORTESIA PROCESADO (IMPRESO or NULL)
-            if (normalizedType === 'CORTESIA' && normalizedState === 'PROCESADO') {
-                return { class: 'type-courtesy', icon: 'money_off', label: '' };
-            }
-            // 2. VENTA PROCESADO (IMPRESO or NULL)
-            if (normalizedType === 'VENTA' && normalizedState === 'PROCESADO') {
-                return { class: 'status-sale', icon: 'price_check', label: '' };
-            }
-            // 3. VENTA ANULADO
-            if (normalizedType === 'VENTA' && normalizedState === 'ANULADO') {
-                return { class: 'status-cancelled', icon: 'remove_done', label: '' };
-            }
-            // 4. VENTA PENDIENTE
-            if (normalizedType === 'VENTA' && normalizedState === 'PENDIENTE') {
-                return { class: 'status-pending', icon: 'pending_actions', label: '' };
-            }
-            return { class: 'status-undefined', icon: 'question_mark', label: '' };
-        }
-
-        // --- Core Logic Variables & Functions ---
-
-        const statusCircle = document.getElementById('status-circle');
-        const statusText = document.getElementById('status-text');
-        let disconnectTimer = null;
-
-        function updateConnectionState(state) {
-            statusCircle.classList.remove('status-connected', 'status-reconnecting', 'status-disconnected');
-            if (state === 'connected') {
-                statusCircle.classList.add('status-connected');
-                statusText.textContent = 'LIVE FEED';
-                statusText.style.color = 'var(--text-secondary)';
-            } else if (state === 'reconnecting') {
-                statusCircle.classList.add('status-reconnecting');
-                statusText.textContent = 'RECONECTANDO...';
-                statusText.style.color = 'var(--status-warning)';
-            } else if (state === 'disconnected') {
-                statusCircle.classList.add('status-disconnected');
-                statusText.textContent = 'SIN CONEXIÓN';
-                statusText.style.color = 'var(--status-cancelled)';
-            }
-        }
-
-        function calculateMetrics(data) {
-            let totalSales = 0;
-            let totalCourtesy = 0;
-
-            // Sets to track unique counts
-            const uniqueSalesIds = new Set();
-            const uniqueCourtesyIds = new Set();
-            const uniqueVoidIds = new Set();
-
-            data.forEach(item => {
-                const type = (item.tipo_salida || '').toUpperCase();
-                const state = (item.estado_comanda || '').toUpperCase();
-                const comandaId = item.id_comanda;
-
-                // 1. Sales (VENTA + PROCESADO)
-                if (type === 'VENTA' && state === 'PROCESADO') {
-                    totalSales += parseFloat(item.sub_total || 0);
-                    uniqueSalesIds.add(comandaId);
-                }
-
-                // 2. Courtesy (CORTESIA + PROCESADO)
-                if (type === 'CORTESIA' && state === 'PROCESADO') {
-                    totalCourtesy += parseFloat(item.cor_subtotal_anterior || 0);
-                    uniqueCourtesyIds.add(comandaId);
-                }
-
-                // 3. Void (ANULADO)
-                if (state === 'ANULADO') {
-                    uniqueVoidIds.add(comandaId);
-                }
-            });
-
-            // DOM Updates
-            const salesEl = document.querySelector('#stat-sales');
-            if (salesEl) {
-                salesEl.querySelector('.stat-value').innerText = formatCurrency(totalSales);
-                salesEl.querySelector('.stat-count').innerText = `${uniqueSalesIds.size} Comandas`;
-            }
-
-            const avgTicket = uniqueSalesIds.size > 0 ? (totalSales / uniqueSalesIds.size) : 0;
-            const avgEl = document.querySelector('#stat-avg');
-            if (avgEl) {
-                avgEl.querySelector('.stat-value').innerText = formatCurrency(avgTicket);
-            }
-
-            const courtesyEl = document.querySelector('#stat-courtesy');
-            if (courtesyEl) {
-                courtesyEl.querySelector('.stat-value').innerText = formatCurrency(totalCourtesy);
-                courtesyEl.querySelector('.stat-count').innerText = `${uniqueCourtesyIds.size} Comandas`;
-            }
-
-            const voidEl = document.querySelector('#stat-void');
-            if (voidEl) {
-                voidEl.querySelector('.stat-value').innerText = uniqueVoidIds.size;
-            }
-        }
-
-        function processData(data) {
-            // Calculate Metrics first
-            calculateMetrics(data || []);
-
-            container.innerHTML = '';
-
-            // Empty State Check
-            if (!data || data.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <span class="material-symbols-outlined">inbox</span>
-                        <p>Todo tranquilo por ahora...</p>
-                    </div>
-                `;
-                return;
-            }
-
-            let maxIdInBatch = 0;
-            let hasNewOrders = false;
-
-            data.forEach(item => {
-                const currentComandaId = parseInt(item.id_comanda);
-                if (currentComandaId > lastComandaId) hasNewOrders = true;
-                if (currentComandaId > maxIdInBatch) maxIdInBatch = currentComandaId;
-
-                const product = processProductInfo(item.nombre);
-                const status = getStatusInfo(item.tipo_salida, item.estado_comanda, item.estado_impresion);
-
-                let displayPrice = item.sub_total;
-                if (status.class === 'type-courtesy') displayPrice = item.cor_subtotal_anterior;
-
-                let cardClasses = `order-card ${status.class}`;
-                if (currentComandaId > lastComandaId && lastComandaId !== 0) cardClasses += ' highlight-new';
-
-                const cardHTML = `
-                    <div class="${cardClasses}">
-                        <div class="card-header">
-                            <span class="order-id">#${item.id_comanda || '???'}</span>
-                            <span class="status-badge" title="${item.tipo_salida} - ${item.estado_comanda}">
-                                <span class="material-symbols-outlined" style="font-size: 18px;">${status.icon}</span>
-                                ${status.label}
-                            </span>
-                        </div>
-                        <div class="product-name">
-                            <span class="material-symbols-outlined" style="font-size: 1.2em; vertical-align: text-bottom; margin-right:4px;">${product.icon}</span>
-                            ${product.name}
-                            ${parseFloat(item.cantidad) > 1 ? `<span style="color:var(--accent-color); margin-left:5px;">x${Math.round(item.cantidad)}</span>` : ''}
-                        </div>
-                        <div class="product-meta">
-                            <span class="timestamp">
-                                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">schedule</span>
-                                ${item.fecha_emision || '--:--'}
-                            </span>
-                            <span class="price-tag">${formatCurrency(displayPrice)}</span>
-                        </div>
-                        <div style="font-size:0.8rem; color: #64748b; margin-top:5px; text-align:right;">
-                             <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: -2px;">account_circle</span>
-                             ${item.usuario_reg || 'Staff'}
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += cardHTML;
-            });
-
-            if (maxIdInBatch > 0) {
-                if (hasNewOrders && lastComandaId > 0) audio.play().catch(e => console.log('Audio autoplay blocked', e));
-                lastComandaId = maxIdInBatch;
-            }
-        }
-
-        async function fetchData() {
-            try {
-                const response = await fetch('fetch.php');
-                const data = await response.json();
-                processData(data);
-            } catch (error) {
-                console.error("Error fetching initial data connection check:", error);
-            }
-        }
-
-        // --- Initialization ---
-
-        fetchData(); // Initial conventional fetch
-
-        const source = new EventSource('fetch.php'); // SSE Connection
-
-        let reconnectTimeout = null;
-
-        source.onopen = function () {
-            console.log("SSE Connected");
-            if (disconnectTimer) clearTimeout(disconnectTimer);
-            if (reconnectTimeout) clearTimeout(reconnectTimeout); // Cancel pending yellow state
-            updateConnectionState('connected');
-        };
-
-        source.onmessage = function (event) {
-            try {
-                const data = JSON.parse(event.data);
-                processData(data);
-            } catch (e) {
-                console.error("Error parsing SSE data", e);
-            }
-        };
-
-        source.onerror = function () {
-            // console.warn("SSE Connection Lost");
-            // Add slight delay before showing yellow to avoid flickering on normal fetching cycles
-            if (!reconnectTimeout) {
-                reconnectTimeout = setTimeout(() => {
-                    updateConnectionState('reconnecting');
-                }, 2000); // 2 seconds tolerance for "blips"
-            }
-
-            if (!disconnectTimer) {
-                disconnectTimer = setTimeout(() => {
-                    updateConnectionState('disconnected');
-                }, 7000); // 5s + 2s buffer
-            }
-        };
-    </script>
 </body>
 
 </html>
