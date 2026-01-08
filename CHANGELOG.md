@@ -35,8 +35,14 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
         -   🟡 RECONECTANDO...: Immediate feedback on signal loss.
         -   🔴 SIN CONEXIÓN: Critical alert after 5s of downtime.
     -   **Empty State UI (v2.6)**: Added a friendly placeholder ("Todo tranquilo por ahora...") when there are no active orders, preventing a "broken" blank screen experience.
-    -   **Sticky Metrics Header (v2.7)**: Added a real-time analytics panel in the header (Sticky position):
-        -   **Ventas**: Shows total amount and order count.
-        -   **Promedio**: Calculates average ticket price dynamically.
-        -   **Cortesías**: Tracks opportunity cost of complimentary items.
-        -   **Anuladas**: Counts voided orders for quick auditing.
+    -   **Sticky Metrics Header (v2.7)**: Added a real-time analytics panel in the header (Sticky position).
+
+### v3.0 - Modular Architecture & UI Polish (2026-01-08)
+-   **Architecture Refactor**:
+    -   Split monolithic `index.html` logic into ES Modules (`js/modules/monitor.js`, `js/modules/kpi.js`).
+    -   Created central `js/app.js` controller.
+    -   Organized assets into `css/` (main, layout) and `assets/`.
+-   **Navigation Upgrade**:
+    -   Implemented **Sidebar Navigation** with Glassmorphism.
+    -   **Hamburger Menu**: Replaced hover expansion with a dedicated toggle button for better UX.
+    -   **Responsive Layout**: Fixed overflow issues and ensured stability on collapse/expand.

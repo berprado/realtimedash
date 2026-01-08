@@ -22,16 +22,25 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 -   **Backend**: PHP 7.x/8.x.
 -   **Database**: MySQL 5.6.12+ (Requires `comandas_v6` view).
 
-## 📂 File Structure
+## 📂 Project Structure
 
--   `index.html`: Main dashboard with JS logic for prefixes, icons, and SSE handling.
--   `style.css`: Contains the Dark Theme styling, animations, and responsive rules.
--   `fetch.php`: SSE endpoint. Queries the `comandas_v6` view.
--   `db_connection.php`: Database connection handler (Multi-env support).
--   `docs/sql/comandas_v6.sql`: SQL definition for the required database view.
-
-## ⚙️ Setup & Configuration
-
+```text
+mysql-realtime-fetching/
+├── assets/             # Sounds and static media
+├── css/
+│   ├── main.css        # Global variables and core styles
+│   └── layout.css      # Sidebar and Container layout
+├── docs/               # SQL and documentation
+├── js/
+│   ├── modules/
+│   │   ├── kpi.js      # Metrics header logic
+│   │   └── monitor.js  # Live grid and SSE logic
+│   └── app.js          # Main application controller
+├── db_connection.php   # Database connection wrapper
+├── fetch.php           # SSE Endpoint (ETag/Sleep logic)
+├── index.html          # Main Application Shell
+└── .env                # Environment configuration
+```
 ### 1. Database Check
 Ensure the view `comandas_v6` is created in your database using the provided SQL file in `docs/sql/`.
 
