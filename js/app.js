@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initKPI();      // Start listening for data
     startMonitor(); // Start fetching data (will trigger events for KPI)
 
-    // Layout Logic (Sidebar Toggles etc.)
+    // Layout Logic (Sidebar Toggles)
     const sidebar = document.querySelector('.sidebar');
-    // Add logic here if we implement manual toggle, currently it is hover-based CSS.
+    const toggleBtn = document.getElementById('sidebar-toggle');
+
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('expanded');
+        });
+    }
 });

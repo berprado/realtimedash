@@ -1,13 +1,16 @@
 /* Sidebar Layout */
 body {
-    display: flex; /* Sidebar + Content */
-    overflow: hidden; /* Prevent body scroll, handle internally */
+    display: flex;
+    /* Sidebar + Content */
+    overflow: hidden;
+    /* Prevent body scroll, handle internally */
 }
 
 /* Sidebar Styles */
 .sidebar {
-    width: 80px; /* Collapsed width by default or icon only */
-    background: var(--card-bg); /* Use existing var */
+    width: 80px;
+    /* Collapsed width by default */
+    background: var(--card-bg);
     backdrop-filter: blur(15px);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     height: 100vh;
@@ -17,18 +20,54 @@ body {
     padding-top: 20px;
     z-index: 2000;
     transition: width 0.3s ease;
+    overflow: hidden;
+    /* Fix: Clip content when collapsed */
 }
 
-.sidebar:hover {
-    width: 250px; /* Expand on hover */
+.sidebar.expanded {
+    width: 250px;
+    /* Expand when class present */
+}
+
+/* Toggle Button */
+.sidebar-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.nav-btn-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.sidebar.expanded .sidebar-header {
+    justify-content: flex-end;
+    /* Align right when expanded? or keep centered? */
+    padding-right: 15px;
+    /* Aesthetic choice */
 }
 
 .nav-item {
     width: 100%;
-    padding: 15px 0; /* Vertical padding */
-    display: flex; /* Centered icon, text hidden initially */
-    justify-content: center; /* Center icon */
-    color: var(--text-secondary); /* From main.css */
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
@@ -36,20 +75,22 @@ body {
     overflow: hidden;
 }
 
-.sidebar:hover .nav-item {
+.sidebar.expanded .nav-item {
     justify-content: flex-start;
-    padding-left: 25px; /* Indent items on expanded */
+    padding-left: 25px;
 }
 
-.nav-item:hover, .nav-item.active {
+.nav-item:hover,
+.nav-item.active {
     color: var(--accent-color);
     background: rgba(255, 255, 255, 0.05);
     border-left: 3px solid var(--accent-color);
 }
 
 .nav-item .material-symbols-outlined {
-    font-size: 28px;
-    min-width: 30px; /* Fixed width for icon to prevent jumping */
+    font-size: 24px;
+    /* Slight adjustment */
+    min-width: 30px;
 }
 
 .nav-label {
@@ -60,10 +101,10 @@ body {
     transition: all 0.3s;
     font-family: 'Oswald', sans-serif;
     font-size: 1.1rem;
-    pointer-events: none; /* Let clicks pass to item */
+    pointer-events: none;
 }
 
-.sidebar:hover .nav-label {
+.sidebar.expanded .nav-label {
     opacity: 1;
     transform: translateX(0);
     pointer-events: auto;
@@ -73,7 +114,8 @@ body {
 #app-content {
     flex-grow: 1;
     height: 100vh;
-    overflow-y: auto; /* Scroll ONLY the content */
+    overflow-y: auto;
+    /* Scroll ONLY the content */
     padding: var(--spacing-md);
     position: relative;
 }
@@ -81,8 +123,10 @@ body {
 /* Adjustments for existing elements */
 /* Override container from main.css to fit in content area */
 .container {
-    max-width: 1600px; /* Wider view since we have sidebar */
+    max-width: 1600px;
+    /* Wider view since we have sidebar */
     margin: 0;
-    padding: 0; /* Content area has padding */
+    padding: 0;
+    /* Content area has padding */
     height: auto;
 }
