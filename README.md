@@ -4,7 +4,7 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 
 ## 🚀 Features
 
--   **Real-time Updates**: Uses SSE to push updates automatically (no refresh needed).
+-   **Real-time Updates**: Uses optimized **Polling** (replacing SSE) to fetch updates automatically without server blocking.
 -   **Professional UI**: Dark theme, responsive grid, glassmorphism effects, and animations.
 -   **Smart Logic**:
     -   **Intelligent Icons**: Automatically maps product names to icons (e.g., "V " -> 🍷, "CHOPP " -> 🍺).
@@ -13,6 +13,7 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 -   **Connection Health Monitor**: Visual feedback for connection state (🟢 Connected, 🟡 Reconnecting, 🔴 Disconnected) to handle network instability gracefully.
 -   **Empty State UI**: Friendly placeholder when no orders are active.
 -   **Sticky Metrics Header**: Real-time analytics (Sales, Average, Courtesies, Voided) pinned to the top for easy monitoring.
+-   **Product Summary Analytics**: Detailed breakdown of sales by product (Quantity/Amount) including courtesies.
 -   **Multi-Environment**: Easy switch between Local (Test) and Remote (Production) databases via `.env`.
 
 ## 🛠️ Technologies
@@ -34,10 +35,14 @@ mysql-realtime-fetching/
 ├── js/
 │   ├── modules/
 │   │   ├── kpi.js      # Metrics header logic
-│   │   └── monitor.js  # Live grid and SSE logic
+│   │   ├── monitor.js  # Live grid and Polling logic (Smart Updates)
+│   │   └── summary.js  # Analytics Table logic
+│   └── app.js          # Main application controller
 │   └── app.js          # Main application controller
 ├── db_connection.php   # Database connection wrapper
-├── fetch.php           # SSE Endpoint (ETag/Sleep logic)
+├── db_connection.php   # Database connection wrapper
+├── fetch.php           # Monitor Polling Endpoint
+├── fetch_summary.php   # Analytics Endpoint
 ├── index.html          # Main Application Shell
 └── .env                # Environment configuration
 ```

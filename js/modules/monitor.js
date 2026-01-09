@@ -15,6 +15,11 @@ export function formatCurrency(amount) {
     return new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB' }).format(amount);
 }
 
+export function initMonitor() {
+    // Initialization logic if needed (e.g. requesting notification permissions)
+    console.log("Monitor Module Initialized");
+}
+
 // Helper: Process Product Info (Icons)
 function processProductInfo(productName) {
     let icon = 'restaurant'; // default
@@ -38,7 +43,7 @@ function processProductInfo(productName) {
             icon = rule.icon;
             // Optional: remove prefix for display clean-up if desired
             // name = productName.substring(rule.prefix.length); 
-            break; 
+            break;
         }
     }
     return { name, icon };
@@ -151,39 +156,45 @@ export function processData(data) {
     }
 }
 
-// Initialization of SSE
+// Initialization of Polling (formerly SSE)
 export function startMonitor() {
-    const source = new EventSource('fetch.php');
+    console.log("Starting Monitor Polling...");
+    updateConnectionState('connected'); // Optimistic UI
 
-    source.onopen = function () {
-        if (disconnectTimer) clearTimeout(disconnectTimer);
-        if (reconnectTimeout) clearTimeout(reconnectTimeout);
+    // Immediate fetch
+    fetchMonitorData();
+
+    // Poll every 2 seconds
+    setInterval(fetchMonitorData, 2000);
+}
+
+// Poll logic with smart update to avoid flickering
+let lastDataJSON = '';
+
+async function fetchMonitorData() {
+    try {
+        const response = await fetch('fetch.php');
+        if (!response.ok) {
+            updateConnectionState('reconnecting');
+            return;
+        }
+        const data = await response.json();
+
         updateConnectionState('connected');
-    };
 
-    source.onmessage = function (event) {
-        try {
-            const data = JSON.parse(event.data);
+        // Prevent flickering: Only render if data changed
+        const currentDataJSON = JSON.stringify(data);
+        if (currentDataJSON !== lastDataJSON) {
+            lastDataJSON = currentDataJSON;
             processData(data); // Render Grid
+
             // Dispatch Data for KPI Module
             const dataEvent = new CustomEvent('data-updated', { detail: data });
             document.dispatchEvent(dataEvent);
-        } catch (e) {
-            console.error("Error parsing SSE data", e);
         }
-    };
 
-    source.onerror = function () {
-        if (!reconnectTimeout) {
-            reconnectTimeout = setTimeout(() => {
-                 updateConnectionState('reconnecting');
-            }, 2000);
-        }
-        
-        if (!disconnectTimer) {
-            disconnectTimer = setTimeout(() => {
-                updateConnectionState('disconnected');
-            }, 7000);
-        }
-    };
+    } catch (e) {
+        console.error("Error fetching Monitor data", e);
+        updateConnectionState('reconnecting');
+    }
 }

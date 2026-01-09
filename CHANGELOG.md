@@ -46,3 +46,18 @@ All notable changes to the "MySQL Realtime Fetching" project will be documented 
     -   Implemented **Sidebar Navigation** with Glassmorphism.
     -   **Hamburger Menu**: Replaced hover expansion with a dedicated toggle button for better UX.
     -   **Responsive Layout**: Fixed overflow issues and ensured stability on collapse/expand.
+
+### v3.1 - Product Summary & Analytics (2026-01-08)
+-   **New Feature: Product Analytics**:
+    -   Added "Analytics" view accessible via Sidebar.
+    -   Displays aggregated sales data: Product Name, Category, Sold Qty/Amount, Courtesy Qty/Amount, and Global Total.
+    -   Backend: Created `resumen_comandas_ultima_operacion` view and `fetch_summary.php`.
+    -   Frontend: Implemented `summary.js` with table rendering and empty states.
+
+### v3.2 - Performance & Stability (2026-01-09)
+-   **Optimized Data Fetching**:
+    -   **Replaced SSE with Polling**: Switched from Server-Sent Events to `setInterval` polling (2s Monitor, 5s Summary) to resolve local WampServer blocking issues (zombie processes).
+    -   **Smart Re-rendering**: Implemented JSON comparison in both `monitor.js` and `summary.js` to **eliminate flickering**. The DOM is now only updated when the data payload actually changes.
+-   **Bug Fixes**:
+    -   Fixed `app.js` module initialization issues.
+    -   Resolved "CONECTANDO..." freeze by clearing stuck server threads.

@@ -52,11 +52,23 @@ header {
     justify-content: space-between;
     align-items: center;
     gap: var(--spacing-md);
+    width: 100%;
+}
 
-    margin-bottom: var(--spacing-lg);
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    margin-bottom: 0;
+    /* Handled by structure */
     padding: var(--spacing-md);
-    background: var(--card-bg);
-    border-radius: 1rem;
+    background: transparent;
+    /* Clean look, or card-bg */
+    /* border-radius: 1rem; */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);

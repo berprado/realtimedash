@@ -18,6 +18,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/modules/summary.css">
 </head>
 
 <body>
@@ -30,11 +31,11 @@
             </button>
         </div>
 
-        <a href="#" class="nav-item active">
+        <a href="#" class="nav-item active" data-target="live-monitor">
             <span class="material-symbols-outlined">dashboard</span>
             <span class="nav-label">Live Monitor</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item" data-target="analytics-summary">
             <span class="material-symbols-outlined">analytics</span>
             <span class="nav-label">Analytics</span>
         </a>
@@ -49,50 +50,67 @@
         </a>
     </nav>
 
-    <!-- Main Content Area -->
-    <main id="app-content">
-        <div class="container">
-            <header>
-                <!-- Title & Status -->
-                <div>
-                    <h1 style="line-height:1">Backstage <span
-                            style="font-weight: 300; font-size: 0.8em; opacity: 0.8;">Online</span></h1>
-                    <div class="status-indicator">
-                        <div class="pulsating-circle" id="status-circle"></div>
-                        <span id="status-text">LIVE FEED</span>
+    <!-- Main Application Shell -->
+    <div class="app-shell">
+
+        <!-- Header / Metrics -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1 class="app-title">BACKSTAGE <span
+                            style="font-weight: 300; font-size: 0.8em; opacity: 0.8;">ONLINE</span></h1>
+                    <div class="live-indicator">
+                        <span class="pulsating-circle"></span>
+                        <span class="status-text">LIVE FEED</span>
                     </div>
                 </div>
 
-                <!-- Metrics Panel (Controlled by kpi.js) -->
-                <div class="metrics-container">
-                    <div class="stat-item" id="stat-sales">
+                <div id="metrics-container" class="metrics-container">
+                    <div id="stat-sales" class="stat-item">
                         <span class="stat-label">Ventas</span>
-                        <span class="stat-value">Bs 0</span>
-                        <span class="stat-count">0 Comandas</span>
+                        <div class="stat-value">--</div>
+                        <div class="stat-count">0 Comandas</div>
                     </div>
-                    <div class="stat-item" id="stat-avg">
+                    <div id="stat-avg" class="stat-item">
                         <span class="stat-label">Ticket Promedio</span>
-                        <span class="stat-value">Bs 0</span>
+                        <div class="stat-value">--</div>
                     </div>
-                    <div class="stat-item type-courtesy" id="stat-courtesy">
+                    <div id="stat-courtesy" class="stat-item">
                         <span class="stat-label">Cortesías</span>
-                        <span class="stat-value">Bs 0</span>
-                        <span class="stat-count">0 Comandas</span>
+                        <div class="stat-value">--</div>
+                        <div class="stat-count">0 Comandas</div>
                     </div>
-                    <div class="stat-item type-void" id="stat-void">
-                        <span class="stat-label">Anuladas</span>
-                        <span class="stat-value">0</span>
-                        <span class="stat-count">Comandas</span>
+                    <div id="stat-void" class="stat-item">
+                        <span class="stat-label">Anulados</span>
+                        <div class="stat-value">0</div>
+                        <div class="stat-count">Comandas</div>
+                    </div>
+                    <!-- Connection Status -->
+                    <div class="stat-item status-indicator">
+                        <div id="status-circle" class="status-circle status-connecting"></div>
+                        <span id="status-text">CONECTANDO...</span>
                     </div>
                 </div>
-            </header>
-
-            <!-- Grid Container for Orders (Controlled by monitor.js) -->
-            <div id="orders-container" class="orders-grid">
-                <!-- Cards injected via JS -->
             </div>
-        </div>
-    </main>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <main id="app-content" class="main-content">
+            <!-- MODULE: Live Monitor -->
+            <div id="orders-container" class="orders-grid">
+                <!-- Javascript injects order cards here -->
+            </div>
+
+            <!-- MODULE: Analytics Summary (Initially Hidden) -->
+            <div id="summary-container" class="summary-container" style="display: none;">
+                <!-- Javascript injects summary table here -->
+                <div class="empty-state">
+                    <p>Iniciando Analytics...</p>
+                </div>
+            </div>
+        </main>
+
+    </div>
 
     <!-- App Entry Point -->
     <script type="module" src="js/app.js"></script>

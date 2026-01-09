@@ -110,14 +110,29 @@ body {
     pointer-events: auto;
 }
 
+/* Main Application Shell (Right Side) */
+.app-shell {
+    flex-grow: 1;
+    /* Take remaining width */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Header + Main */
+    position: relative;
+    background-image:
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+}
+
 /* Main Content Area */
 #app-content {
     flex-grow: 1;
-    height: 100vh;
     overflow-y: auto;
-    /* Scroll ONLY the content */
+    /* Scroll ONLY the content cards */
     padding: var(--spacing-md);
     position: relative;
+    /* height: 100vh; <-- Removed, let flex handle it */
 }
 
 /* Adjustments for existing elements */
