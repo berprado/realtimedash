@@ -8,7 +8,7 @@ header('Cache-Control: no-cache');
 
 require_once 'db_connection.php';
 
-$result = $con->query("SELECT * FROM comandas_v6 ORDER BY id DESC");
+$result = $con->query("SELECT * FROM comandas_v7 ORDER BY id DESC");
 
 $data = [];
 if ($result && $result->num_rows > 0) {
