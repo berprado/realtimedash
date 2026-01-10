@@ -6,6 +6,7 @@
     -   **New View `comandas_v7`**: Replaced `comandas_v6`. Now sources `estado_impresion` from the **actual printing log** (`bar_comanda_impresion`) instead of the administrative status.
     -   **Helper View `vw_comanda_ultima_impresion`**: Created to support v7 logic in MySQL 5.6, ensuring only the latest printing event is considered.
     -   **Migration Script**: Added `scripts/migrate_v7.php` for automated deployment of the new views.
+    -   **Resumen View Refactor**: Updated `fetch_summary.php` to use `resumen_comandas_ultima_operacion_v7`, ensuring analytics data is consistent with the main dashboard (`comandas_v7`).
 -   **Fixed**:
     -   Resolved issue where printed tickets appeared as "Pending" (gray/yellow) because the administrative flag in `bar_comanda` was not updated reliably.
 -   **Compatibility**:

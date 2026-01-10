@@ -18,7 +18,7 @@ $sql = "SELECT
             monto_venta, 
             cantidad_cortesia, 
             monto_cortesia 
-        FROM resumen_comandas_ultima_operacion 
+        FROM resumen_comandas_ultima_operacion_v7 
         ORDER BY nombre ASC";
 
 $result = mysqli_query($con, $sql);
