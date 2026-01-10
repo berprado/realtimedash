@@ -21,7 +21,7 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 -   **Frontend**: HTML5, Modern CSS3 (Variables, Grid, keyframes), JavaScript (ES6+).
 -   **Assets**: Google Fonts (Oswald, Inter), Google Material Symbols.
 -   **Backend**: PHP 7.x/8.x.
--   **Database**: MySQL 5.6.12+ (Requires `comandas_v6` view).
+-   **Database**: MySQL 5.6.12+ (Requires `comandas_v7` view).
 
 ## 📂 Project Structure
 
@@ -47,7 +47,7 @@ mysql-realtime-fetching/
 └── .env                # Environment configuration
 ```
 ### 1. Database Check
-Ensure the view `comandas_v6` is created in your database using the provided SQL file in `docs/sql/`.
+Ensure the view `comandas_v7` is created in your database using the provided SQL file in `docs/sql/`.
 
 ### 2. Environment (.env)
 Configure your `.env` file for **test** or **production**:
@@ -64,7 +64,7 @@ The dashboard includes specific business logic in the JavaScript section of `ind
 -   **Reliability**: The system treats `PROCESADO` orders as confirmed sales even if the printer status is NULL, to handle POS inconsistencies.
 
 ### 4. Data Logic & Behavior
-The dashboard relies on the `comandas_v6` view which filters data by the **latest operation** (`MAX(id_operacion)`).
+The dashboard relies on the `comandas_v7` view which filters data by the **latest operation** (`MAX(id_operacion)`).
 -   **Continuous Flow**: When a new operation starts (e.g., next day), the dashboard continues showing the *previous* operation's data until the **first new order** is registered. At that moment, it instantly switches to the new operation.
 -   **Empty State**: The "Empty State" UI is only visible on a fresh installation (Day Zero) or if the `bar_comanda` table is truncated, as there is no "previous operation" to display.
 
