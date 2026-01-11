@@ -1,4 +1,4 @@
-/* Top Bar (Trigger) */
+/* Top Bar (Trigger & Metrics) */
 .top-bar {
     position: fixed;
     top: 0;
@@ -6,17 +6,105 @@
     width: 100%;
     height: 60px;
     display: flex;
+    justify-content: space-between;
+    /* Brand Left, Metrics Right */
     align-items: center;
     padding: 0 20px;
     z-index: 1000;
-    /* Optional: glass effect if overlapping content */
-    /* background: rgba(0, 0, 0, 0.2); 
-       backdrop-filter: blur(5px); */
-    pointer-events: none;
-    /* Let clicks pass through to content except for button */
+    background: rgba(15, 23, 42, 0.95);
+    /* Ensure readability */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Metrics Bar (Right Side) */
+.metrics-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.metric-compact {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric-compact .metric-label {
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.metric-compact .metric-value {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+}
+
+/* Status Specifics */
+.metric-compact.status {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.metric-compact.status .metric-value {
+    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Specific Highlights */
+#stat-sales .metric-value {
+    color: var(--status-sale);
+}
+
+#stat-avg .metric-value {
+    color: var(--accent-color);
+}
+
+#stat-courtesy .metric-value {
+    color: var(--status-courtesy);
+}
+
+/* Hide less important metrics on mobile */
+@media (max-width: 900px) {
+    .brand {
+        display: none;
+    }
+
+    /* Hide brand on mobile to save space */
+    .desktop-only {
+        display: none;
+    }
+
+    .metrics-bar {
+        gap: 10px;
+    }
+
+    .metric-compact {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
 }
 
 .menu-btn {
+
     pointer-events: auto;
     background: rgba(30, 30, 30, 0.6);
     backdrop-filter: blur(10px);

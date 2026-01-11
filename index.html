@@ -26,14 +26,40 @@
     <!-- Sidebar Navigation -->
     <!-- Top Navigation Trigger -->
     <header class="top-bar">
-        <button id="menu-trigger" class="menu-btn" aria-label="Abrir menú">
-            <span class="material-symbols-outlined">menu</span>
-        </button>
-        <div class="brand">BACKSTAGE ONLINE</div>
+        <div class="left-section">
+            <button id="menu-trigger" class="menu-btn" aria-label="Abrir menú">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="brand">BACKSTAGE ONLINE</div>
+        </div>
 
-        <div class="live-indicator-small">
-            <span class="pulsating-circle"></span>
-            <span class="status-text">LIVE</span>
+        <!-- Compact Metrics Bar -->
+        <div class="metrics-bar">
+            <!-- Connection Status -->
+            <div id="status-indicator-compact" class="metric-compact status" title="Estado de Conexión">
+                <div id="status-circle" class="status-circle status-connecting"></div>
+                <span id="status-text" class="metric-value">CONECTANDO...</span>
+            </div>
+
+            <div id="stat-sales" class="metric-compact">
+                <span class="metric-label">Ventas:</span>
+                <span class="metric-value stat-value">--</span>
+            </div>
+
+            <div id="stat-avg" class="metric-compact">
+                <span class="metric-label">Ticket:</span>
+                <span class="metric-value stat-value">--</span>
+            </div>
+
+            <div id="stat-courtesy" class="metric-compact">
+                <span class="metric-label">Cortesías:</span>
+                <span class="metric-value stat-value">--</span>
+            </div>
+
+            <div id="stat-void" class="metric-compact desktop-only">
+                <span class="metric-label">Anulados:</span>
+                <span class="metric-value stat-value">0</span>
+            </div>
         </div>
     </header>
 
@@ -77,32 +103,7 @@
             <div id="view-live-monitor">
 
                 <!-- Metrics Module -->
-                <div id="metrics-container" class="metrics-container module-spacing">
-                    <div id="stat-sales" class="stat-item">
-                        <span class="stat-label">Ventas</span>
-                        <div class="stat-value">--</div>
-                        <div class="stat-count">0 Comandas</div>
-                    </div>
-                    <div id="stat-avg" class="stat-item">
-                        <span class="stat-label">Ticket Promedio</span>
-                        <div class="stat-value">--</div>
-                    </div>
-                    <div id="stat-courtesy" class="stat-item">
-                        <span class="stat-label">Cortesías</span>
-                        <div class="stat-value">--</div>
-                        <div class="stat-count">0 Comandas</div>
-                    </div>
-                    <div id="stat-void" class="stat-item">
-                        <span class="stat-label">Anulados</span>
-                        <div class="stat-value">0</div>
-                        <div class="stat-count">Comandas</div>
-                    </div>
-                    <!-- Connection Status -->
-                    <div class="stat-item status-indicator">
-                        <div id="status-circle" class="status-circle status-connecting"></div>
-                        <span id="status-text">CONECTANDO...</span>
-                    </div>
-                </div>
+
 
                 <!-- Orders Module -->
                 <div id="orders-container" class="orders-grid">
