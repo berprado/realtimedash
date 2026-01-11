@@ -40,11 +40,12 @@ body {
 }
 
 /* Header Styles (Sticky & Glassmorphism) */
-header {
+.dashboard-header {
     position: sticky;
     top: 10px;
     /* Slight offset */
-    z-index: 1000;
+    z-index: 900;
+    /* Lower than menu sidebar */
 
     display: flex;
     flex-wrap: wrap;
@@ -132,7 +133,7 @@ header {
 
 /* Mobile Responsive Metrics */
 @media (max-width: 900px) {
-    header {
+    .dashboard-header {
         position: relative;
         /* On very small screens sticky might take too much height */
     }
@@ -145,7 +146,7 @@ header {
 }
 
 @media (min-width: 901px) {
-    header {
+    .dashboard-header {
         position: sticky;
     }
 }

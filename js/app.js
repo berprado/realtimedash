@@ -12,47 +12,71 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start Default Module (Monitor)
     startMonitor();
 
-    // Navigation Logic
-    const navItems = document.querySelectorAll('.nav-item');
+    // --- MENU NAVIGATION LOGIC ---
+    const menuTrigger = document.getElementById('menu-trigger');
+    const menuClose = document.getElementById('menu-close');
+    const overlayMenu = document.getElementById('overlay-menu');
+    const menuLinks = document.querySelectorAll('.menu-link');
     const views = {
         'live-monitor': document.getElementById('orders-container'),
         'analytics-summary': document.getElementById('summary-container')
     };
 
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = item.getAttribute('data-target');
+    function toggleMenu(show) {
+        if (show) {
+            overlayMenu.classList.add('active');
+        } else {
+            overlayMenu.classList.remove('active');
+        }
+    }
 
-            if (!targetId || !views[targetId]) return;
+    // Open/Close Events
+    if (menuTrigger) menuTrigger.addEventListener('click', () => toggleMenu(true));
+    if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
 
-            // 1. Update Sidebar Active State
-            navItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
-
-            // 2. Switch View Visibility
-            Object.values(views).forEach(el => el.style.display = 'none');
-            views[targetId].style.display = 'block'; // Or flex/grid depending on CSS
-
-            // 3. Manage Module Lifecycle (Performance)
-            if (targetId === 'analytics-summary') {
-                startSummary();
-            } else {
-                stopSummary();
-            }
-
-            // Optional: Scroll to top
-            window.scrollTo(0, 0);
-        });
+    // Close on Outside Click
+    document.addEventListener('click', (e) => {
+        if (overlayMenu.classList.contains('active') &&
+            !overlayMenu.contains(e.target) &&
+            !menuTrigger.contains(e.target)) {
+            toggleMenu(false);
+        }
     });
 
-    // Layout Logic (Sidebar Toggles)
-    const sidebar = document.querySelector('.sidebar');
-    const toggleBtn = document.getElementById('sidebar-toggle');
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') toggleMenu(false);
+    });
 
-    if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('expanded');
+    // Navigation Events
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-target');
+
+            // 1. Navigation Logic
+            if (targetId && views[targetId]) {
+                // Update specific styles/visibility
+                Object.values(views).forEach(el => el.style.display = 'none');
+                views[targetId].style.display = 'block';
+
+                // Update Active Link
+                menuLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                // Lifecycle Management
+                if (targetId === 'analytics-summary') {
+                    startSummary();
+                } else {
+                    stopSummary();
+                }
+
+                // Scroll reset
+                window.scrollTo(0, 0);
+            }
+
+            // 2. Always close menu after selection
+            toggleMenu(false);
         });
-    }
+    });
 });

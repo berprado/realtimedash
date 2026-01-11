@@ -1,147 +1,168 @@
-/* Sidebar Layout */
-body {
+/* Top Bar (Trigger) */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
     display: flex;
-    /* Sidebar + Content */
-    overflow: hidden;
-    /* Prevent body scroll, handle internally */
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    /* Optional: glass effect if overlapping content */
+    /* background: rgba(0, 0, 0, 0.2); 
+       backdrop-filter: blur(5px); */
+    pointer-events: none;
+    /* Let clicks pass through to content except for button */
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 80px;
-    /* Collapsed width by default */
-    background: var(--card-bg);
-    backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+.menu-btn {
+    pointer-events: auto;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.menu-btn .material-symbols-outlined {
+    font-size: 28px;
+}
+
+.brand {
+    margin-left: 15px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: auto;
+    opacity: 0;
+    /* Hidden by default, show if needed or on scroll */
+    transition: opacity 0.3s;
+}
+
+/* Overlay Menu */
+.overlay-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
     height: 100vh;
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 2000;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    z-index: 2000;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    /* Fix: Clip content when collapsed */
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
 }
 
-.sidebar.expanded {
-    width: 250px;
-    /* Expand when class present */
+.overlay-menu.active {
+    transform: translateX(0);
 }
 
-/* Toggle Button */
-.sidebar-header {
-    width: 100%;
+.menu-header {
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.nav-btn-toggle {
+.menu-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+}
+
+.menu-btn-close {
     background: transparent;
     border: none;
     color: var(--text-secondary);
     cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    transition: all 0.2s;
+    padding: 5px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: color 0.2s;
 }
 
-.nav-btn-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-primary);
-}
-
-.sidebar.expanded .sidebar-header {
-    justify-content: flex-end;
-    /* Align right when expanded? or keep centered? */
-    padding-right: 15px;
-    /* Aesthetic choice */
-}
-
-.nav-item {
-    width: 100%;
-    padding: 15px 0;
-    display: flex;
-    justify-content: center;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-}
-
-.sidebar.expanded .nav-item {
-    justify-content: flex-start;
-    padding-left: 25px;
-}
-
-.nav-item:hover,
-.nav-item.active {
+.menu-btn-close:hover {
     color: var(--accent-color);
-    background: rgba(255, 255, 255, 0.05);
-    border-left: 3px solid var(--accent-color);
 }
 
-.nav-item .material-symbols-outlined {
-    font-size: 24px;
-    /* Slight adjustment */
-    min-width: 30px;
-}
-
-.nav-label {
-    margin-left: 15px;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: all 0.3s;
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.1rem;
-    pointer-events: none;
-}
-
-.sidebar.expanded .nav-label {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-}
-
-/* Main Application Shell (Right Side) */
-.app-shell {
-    flex-grow: 1;
-    /* Take remaining width */
-    height: 100vh;
+.menu-items {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    /* Header + Main */
-    position: relative;
-    background-image:
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
-}
-
-/* Main Content Area */
-#app-content {
+    gap: 10px;
     flex-grow: 1;
-    overflow-y: auto;
-    /* Scroll ONLY the content cards */
-    padding: var(--spacing-md);
-    position: relative;
-    /* height: 100vh; <-- Removed, let flex handle it */
 }
 
-/* Adjustments for existing elements */
-/* Override container from main.css to fit in content area */
-.container {
-    max-width: 1600px;
-    /* Wider view since we have sidebar */
-    margin: 0;
-    padding: 0;
-    /* Content area has padding */
-    height: auto;
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.menu-link:hover,
+.menu-link.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    transform: translateX(5px);
+}
+
+.menu-link.active {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.1) 0%, transparent 100%);
+    border-left: 3px solid var(--accent-color);
+    color: var(--accent-color);
+}
+
+.menu-link .material-symbols-outlined {
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+.menu-spacer {
+    flex-grow: 1;
+}
+
+/* App Shell Adjustments */
+.app-shell {
+    padding-top: 60px;
+    /* Space for top triggers if needed */
+    height: 100vh;
+    overflow: hidden;
+}
+
+#app-content {
+    /* Ensure content area takes full remaining height */
+    height: calc(100vh - 80px);
+    /* Adjust based on header */
+    overflow-y: auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .overlay-menu {
+        width: 85vw;
+    }
 }

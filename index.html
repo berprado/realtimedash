@@ -24,30 +24,42 @@
 <body>
 
     <!-- Sidebar Navigation -->
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <button id="sidebar-toggle" class="nav-btn-toggle">
-                <span class="material-symbols-outlined">menu</span>
+    <!-- Top Navigation Trigger -->
+    <header class="top-bar">
+        <button id="menu-trigger" class="menu-btn" aria-label="Abrir menú">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="brand">BACKSTAGE ONLINE</div>
+    </header>
+
+    <!-- Overlay Menu -->
+    <nav id="overlay-menu" class="overlay-menu">
+        <div class="menu-header">
+            <span class="menu-title">MENÚ</span>
+            <button id="menu-close" class="menu-btn-close">
+                <span class="material-symbols-outlined">close</span>
             </button>
         </div>
 
-        <a href="#" class="nav-item active" data-target="live-monitor">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span class="nav-label">Live Monitor</span>
-        </a>
-        <a href="#" class="nav-item" data-target="analytics-summary">
-            <span class="material-symbols-outlined">analytics</span>
-            <span class="nav-label">Analytics</span>
-        </a>
-        <a href="#" class="nav-item">
-            <span class="material-symbols-outlined">history</span>
-            <span class="nav-label">Historial</span>
-        </a>
-        <div style="flex-grow:1"></div>
-        <a href="#" class="nav-item">
-            <span class="material-symbols-outlined">settings</span>
-            <span class="nav-label">Configuración</span>
-        </a>
+        <div class="menu-items">
+            <a href="#" class="menu-link active" data-target="live-monitor">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>Live Monitor</span>
+            </a>
+            <a href="#" class="menu-link" data-target="analytics-summary">
+                <span class="material-symbols-outlined">analytics</span>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="menu-link">
+                <span class="material-symbols-outlined">history</span>
+                <span>Historial</span>
+            </a>
+            <div class="menu-spacer"></div>
+            <a href="#" class="menu-link">
+                <span class="material-symbols-outlined">settings</span>
+                <span>Configuración</span>
+            </a>
+        </div>
     </nav>
 
     <!-- Main Application Shell -->
