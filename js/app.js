@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlayMenu = document.getElementById('overlay-menu');
     const menuLinks = document.querySelectorAll('.menu-link');
     const views = {
-        'live-monitor': document.getElementById('orders-container'),
+        'live-monitor': document.getElementById('view-live-monitor'),
         'analytics-summary': document.getElementById('summary-container')
     };
 

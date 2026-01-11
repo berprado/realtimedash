@@ -40,22 +40,6 @@ body {
 }
 
 /* Header Styles (Sticky & Glassmorphism) */
-.dashboard-header {
-    position: sticky;
-    top: 10px;
-    /* Slight offset */
-    z-index: 900;
-    /* Lower than menu sidebar */
-
-    display: flex;
-    flex-wrap: wrap;
-    /* Allow metrics to wrap on small screens */
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--spacing-md);
-    width: 100%;
-}
-
 .header-content {
     display: flex;
     justify-content: space-between;
@@ -76,24 +60,47 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Metrics Container */
+/* Metrics Module (Inline) */
 .metrics-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    flex-grow: 1;
-    /* Take simplified space */
-    max-width: 800px;
+    width: 100%;
+    margin-bottom: var(--spacing-lg);
+    /* Space between metrics and orders */
 }
 
+/* Status Indicator in Top Bar */
+.live-indicator-small {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    /* Push to right */
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.live-indicator-small .status-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--status-sale);
+    letter-spacing: 1px;
+}
+
+/* Metric Items */
 .stat-item {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-left: 2px solid transparent;
-    /* default */
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: var(--card-bg);
+    /* Use card background */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Subtle border */
+    backdrop-filter: blur(5px);
 }
 
 /* Stat specific styling */
@@ -217,8 +224,10 @@ h1 {
 /* Grid Layout for Cards */
 .orders-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-md);
+    align-content: start;
+    /* Prevent stretching if few items */
 }
 
 /* Order Card Styles */

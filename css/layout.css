@@ -74,6 +74,22 @@
     transform: translateX(0);
 }
 
+/* Sidebar Layout */
+body {
+    display: block;
+    /* Sidebar removed, normal flow */
+    overflow: hidden;
+    /* Prevent body scroll, handle internally */
+}
+
+/* App Shell Adjustments */
+/* App Shell Adjustments */
+.app-shell {
+    width: 100%;
+    /* Ensure full width layout */
+    padding-top: 60px;
+}
+
 .menu-header {
     display: flex;
     justify-content: space-between;
@@ -145,19 +161,20 @@
     flex-grow: 1;
 }
 
-/* App Shell Adjustments */
-.app-shell {
-    padding-top: 60px;
-    /* Space for top triggers if needed */
-    height: 100vh;
-    overflow: hidden;
-}
-
 #app-content {
     /* Ensure content area takes full remaining height */
     height: calc(100vh - 80px);
     /* Adjust based on header */
     overflow-y: auto;
+}
+
+/* View Container - Centered & Constrained */
+#view-live-monitor,
+.summary-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
 }
 
 /* Mobile Responsiveness */
