@@ -12,6 +12,16 @@
 -   **Compatibility**:
     -   Dashboard frontend logic remains unchanged (Plug & Play update).
 
+## v4.1 - UX Polish & Layout Stability (2026-01-13)
+-   **Layout Refactor**:
+    -   **Sticky Header**: Implemented native `position: sticky` for the top bar, replacing the fixed/overflow-hidden model.
+    -   **Native Scroll**: Restored native body scrolling, eliminating horizontal overflow and double scrollbar issues.
+    -   **Overlay Menu**: Replaced sidebar push logic with a clean Overlay Menu for better mobile/desktop experience.
+-   **UI Enhancements**:
+    -   **Material Icons**: Replaced plain text labels in top bar (Sales, Ticket, etc.) with intuitive Material Symbols (Outlined).
+    -   **Void Metric Visibility**: Fixed overflow issues that hid the "Anulados" metric on wider screens.
+    -   **Menu Styling**: Considated menu styles in `layout.css`.
+
 ## [Unreleased / Current] - 2026-01-02
 
 ### Added

@@ -12,7 +12,8 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 -   **Audio Alerts**: Plays a subtle sound when a new order arrives.
 -   **Connection Health Monitor**: Visual feedback for connection state (🟢 Connected, 🟡 Reconnecting, 🔴 Disconnected) to handle network instability gracefully.
 -   **Empty State UI**: Friendly placeholder when no orders are active.
--   **Sticky Metrics Header**: Real-time analytics (Sales, Average, Courtesies, Voided) pinned to the top for easy monitoring.
+-   **Sticky Metrics Header**: Real-time analytics (Sales, Average, Courtesies, Voided) with Material Icons, pinned to the top.
+-   **Overlay Navigation**: Clean, accessible menu for navigating between views (Live Monitor, Analytics).
 -   **Product Summary Analytics**: Detailed breakdown of sales by product (Quantity/Amount) including courtesies.
 -   **Multi-Environment**: Easy switch between Local (Test) and Remote (Production) databases via `.env`.
 
@@ -38,8 +39,6 @@ mysql-realtime-fetching/
 │   │   ├── monitor.js  # Live grid and Polling logic (Smart Updates)
 │   │   └── summary.js  # Analytics Table logic
 │   └── app.js          # Main application controller
-│   └── app.js          # Main application controller
-├── db_connection.php   # Database connection wrapper
 ├── db_connection.php   # Database connection wrapper
 ├── fetch.php           # Monitor Polling Endpoint
 ├── fetch_summary.php   # Analytics Endpoint
