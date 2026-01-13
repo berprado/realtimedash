@@ -1,24 +1,3 @@
-/* Top Bar (Trigger & Metrics) */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    /* Brand Left, Metrics Right */
-    align-items: center;
-    padding: 0 20px;
-    z-index: 1000;
-    background: rgba(15, 23, 42, 0.95);
-    /* Ensure readability */
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-sizing: border-box;
-    /* Fix overflow due to padding */
-}
-
 .left-section {
     display: flex;
     align-items: center;
@@ -44,11 +23,14 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.metric-compact .metric-label {
-    font-weight: 500;
-    font-size: 0.8rem;
-    text-transform: uppercase;
+.metric-compact .material-symbols-outlined {
+    font-size: 20px;
     opacity: 0.8;
+}
+
+.metric-compact:hover .material-symbols-outlined {
+    opacity: 1;
+    color: var(--accent-color);
 }
 
 .metric-compact .metric-value {
@@ -168,94 +150,48 @@
 body {
     display: block;
     /* Sidebar removed, normal flow */
-    overflow: hidden;
-    /* Prevent body scroll, handle internally */
+    overflow-y: auto;
+    /* Enable native scroll */
+    min-height: 100vh;
 }
 
-/* App Shell Adjustments */
 /* App Shell Adjustments */
 .app-shell {
     width: 100%;
     /* Ensure full width layout */
-    padding-top: 60px;
-}
-
-.menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.menu-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    letter-spacing: 2px;
-}
-
-.menu-btn-close {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 5px;
-    display: flex;
-    transition: color 0.2s;
-}
-
-.menu-btn-close:hover {
-    color: var(--accent-color);
-}
-
-.menu-items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex-grow: 1;
-}
-
-.menu-link {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    border-radius: 12px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all 0.2s;
-    font-size: 1.1rem;
-    font-weight: 500;
-}
-
-.menu-link:hover,
-.menu-link.active {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-primary);
-    transform: translateX(5px);
-}
-
-.menu-link.active {
-    background: linear-gradient(90deg, rgba(56, 189, 248, 0.1) 0%, transparent 100%);
-    border-left: 3px solid var(--accent-color);
-    color: var(--accent-color);
-}
-
-.menu-link .material-symbols-outlined {
-    margin-right: 15px;
-    font-size: 24px;
-}
-
-.menu-spacer {
-    flex-grow: 1;
+    padding-top: 0;
+    /* No padding needed for sticky, it flows naturally or we pad the content */
+    /* Remove constrained height to allow body scroll */
+    min-height: 100vh;
 }
 
 #app-content {
-    /* Ensure content area takes full remaining height */
-    height: calc(100vh - 80px);
-    /* Adjust based on header */
-    overflow-y: auto;
+    /* Remove internal scroll */
+    height: auto;
+    overflow: visible;
+    padding-top: 20px;
+    /* Space from sticky header */
+}
+
+/* Update Top Bar to Sticky */
+.top-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-sizing: border-box;
+    /* PERMANENT FIX for overflow */
+    max-width: 100%;
+    /* Ensure it doesn't exceed parent */
 }
 
 /* View Container - Centered & Constrained */

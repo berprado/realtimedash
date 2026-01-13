@@ -13,12 +13,12 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Oswald:wght@300;400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/modules/summary.css">
+    <link rel="stylesheet" href="css/main.css?v=2">
+    <link rel="stylesheet" href="css/layout.css?v=2">
+    <link rel="stylesheet" href="css/modules/summary.css?v=2">
 </head>
 
 <body>
@@ -41,25 +41,27 @@
                 <span id="status-text" class="metric-value">CONECTANDO...</span>
             </div>
 
-            <div id="stat-sales" class="metric-compact">
-                <span class="metric-label">Ventas:</span>
+            <div id="stat-sales" class="metric-compact" title="Ventas Totales">
+                <span class="material-symbols-outlined">local_atm</span>
                 <span class="metric-value stat-value">--</span>
             </div>
 
-            <div id="stat-avg" class="metric-compact">
-                <span class="metric-label">Ticket:</span>
+            <div id="stat-avg" class="metric-compact" title="Ticket Promedio">
+                <span class="material-symbols-outlined">price_change</span>
                 <span class="metric-value stat-value">--</span>
             </div>
 
-            <div id="stat-courtesy" class="metric-compact">
-                <span class="metric-label">Cortesías:</span>
+            <div id="stat-courtesy" class="metric-compact" title="Cortesías">
+                <span class="material-symbols-outlined">loyalty</span>
                 <span class="metric-value stat-value">--</span>
             </div>
 
-            <div id="stat-void" class="metric-compact">
-                <span class="metric-label">Anulados:</span>
+            <div id="stat-void" class="metric-compact" title="Comandas Anuladas">
+                <span class="material-symbols-outlined">variable_remove</span>
                 <span class="metric-value stat-value">0</span>
             </div>
+
+
         </div>
     </header>
 
