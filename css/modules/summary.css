@@ -60,3 +60,20 @@
 .col-name {
     min-width: 200px;
 }
+
+@media (max-width: 600px) {
+
+    .summary-table th,
+    .summary-table td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .product-name {
+        font-size: 0.9rem;
+    }
+
+    .badgex {
+        font-size: 0.6rem;
+    }
+}

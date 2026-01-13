@@ -128,8 +128,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 300px;
-    height: 100vh;
+    width: clamp(240px, 85vw, 320px);
     background: rgba(18, 18, 18, 0.95);
     backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.05);
@@ -265,6 +264,35 @@ body {
     /* Ensure it doesn't exceed parent */
 }
 
+/* Responsive Top Bar */
+@media (max-width: 600px) {
+    .top-bar {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 5px 10px;
+        gap: 5px;
+    }
+
+    .metrics-bar {
+        width: 100%;
+        justify-content: space-between;
+        padding-top: 5px;
+        overflow-x: auto;
+        /* Allow scroll if it still overflows */
+        scrollbar-width: none;
+    }
+
+    .left-section {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .metric-compact {
+        flex-shrink: 0;
+        /* Prevent crushing */
+    }
+}
+
 /* View Container - Centered & Constrained */
 #view-live-monitor,
 .summary-container {
@@ -278,5 +306,15 @@ body {
 @media (max-width: 768px) {
     .overlay-menu {
         width: 85vw;
+    }
+}
+
+/* Tablet adjustments (Padding Fix) */
+@media (max-width: 900px) {
+
+    #view-live-monitor,
+    .summary-container {
+        padding: 10px;
+        /* Reduce container padding */
     }
 }

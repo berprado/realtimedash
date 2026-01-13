@@ -153,6 +153,12 @@ h1 {
     /* Prevent stretching if few items */
 }
 
+@media (max-width: 480px) {
+    .orders-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Order Card Styles */
 .order-card {
     background: var(--card-bg);
