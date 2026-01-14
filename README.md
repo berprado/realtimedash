@@ -30,9 +30,15 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 mysql-realtime-fetching/
 ├── assets/             # Sounds and static media
 ├── css/
-│   ├── main.css        # Global variables and core styles
-│   └── layout.css      # Sidebar and Container layout
-├── docs/               # SQL and documentation
+│   ├── main.css        # Global variables, box-sizing reset, and core styles
+│   ├── layout.css      # Top bar, Overlay Menu, and Container layout
+│   └── modules/
+│       ├── kpi.css     # KPI cards grid styles
+│       └── summary.css # Analytics table styles
+├── docs/
+│   ├── recomendaciones/  # Design guides and recommendations
+│   ├── sql/              # Database views and migration docs
+│   └── capturas/         # Screenshots
 ├── js/
 │   ├── modules/
 │   │   ├── kpi.js      # Metrics header logic
@@ -43,6 +49,7 @@ mysql-realtime-fetching/
 ├── fetch.php           # Monitor Polling Endpoint
 ├── fetch_summary.php   # Analytics Endpoint
 ├── index.html          # Main Application Shell
+├── CHANGELOG.md        # Version history (current: v4.2)
 └── .env                # Environment configuration
 ```
 ### 1. Database Check

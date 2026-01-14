@@ -388,25 +388,27 @@ La función `min()` asegura que en pantallas menores a 300px, las tarjetas ocupe
 
 ## 6. CHECKLIST DE CORRECCIONES PRIORITARIAS
 
+> **✅ Implementado en v4.2 (2026-01-14)**
+
 ### Alta Prioridad (Impacto Visual Directo)
 
-- [ ] Agregar estilos para `.status-circle` o cambiar clase en HTML
-- [ ] Corregir `opacity: 0` en `.brand` para desktop
-- [ ] Agregar `box-sizing: border-box` global
-- [ ] Eliminar selector duplicado `.dashboard-header`
+- [x] Agregar estilos para `.status-circle` o cambiar clase en HTML
+- [x] Corregir `opacity: 0` en `.brand` para desktop
+- [x] Agregar `box-sizing: border-box` global
+- [x] Eliminar selector duplicado `.dashboard-header`
 
 ### Media Prioridad (Mejora UX Responsive)
 
-- [ ] Eliminar media query redundante de `.overlay-menu` (768px)
-- [ ] Corregir cálculos de `.summary-table-wrapper` en móvil
+- [x] Eliminar media query redundante de `.overlay-menu` (768px)
+- [x] Corregir cálculos de `.summary-table-wrapper` en móvil
 - [ ] Implementar tabla apilada o compacta para `<480px`
-- [ ] Agregar `height: 100dvh` al `.overlay-menu`
+- [x] Agregar `height: 100dvh` al `.overlay-menu`
 
 ### Baja Prioridad (Mantenibilidad)
 
 - [ ] Documentar sistema de breakpoints unificado
 - [ ] Estandarizar uso de unidades (rem vs px)
-- [ ] Limpiar comentarios obsoletos
+- [x] Limpiar comentarios obsoletos
 - [ ] Considerar migración a variables CSS para breakpoints
 
 ---

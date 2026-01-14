@@ -1,5 +1,29 @@
 # Changelog
 
+## v4.2 - Responsive Design Fixes (2026-01-14)
+-   **Critical Fixes**:
+    -   **Status Indicator**: Fixed `.status-circle` missing styles - connection indicator now visible.
+    -   **Brand Visibility**: Fixed `.brand` always invisible (`opacity: 0` → `opacity: 1`).
+    -   **Duplicate Selector**: Removed duplicated `.dashboard-header` in media query.
+-   **Responsive Improvements**:
+    -   **Overlay Menu**: Added `height: 100dvh` for proper mobile viewport handling.
+    -   **Overlay Menu**: Removed redundant `@media (max-width: 768px)` that conflicted with `clamp()`.
+    -   **Summary Table**: Simplified `max-width` calculation to prevent overflow conflicts.
+-   **CSS Cleanup**:
+    -   Added global `box-sizing: border-box` reset for consistent sizing.
+    -   Cleaned obsolete and duplicate comments in `layout.css`.
+-   **Documentation**:
+    -   Added technical guide: `docs/recomendaciones/guia_tecnica_responsive.md`.
+
+## v4.1 - UX Polish & Layout Stability (2026-01-13)
+-   **Layout Refactor**:
+    -   **Sticky Header**: Implemented native `position: sticky` for the top bar, replacing the fixed/overflow-hidden model.
+    -   **Native Scroll**: Restored native body scrolling, eliminating horizontal overflow and double scrollbar issues.
+    -   **Overlay Menu**: Replaced sidebar push logic with a clean Overlay Menu for better mobile/desktop experience.
+-   **UI Enhancements**:
+    -   **Material Icons**: Replaced plain text labels in top bar (Sales, Ticket, etc.) with intuitive Material Symbols (Outlined).
+    -   **Void Metric Visibility**: Fixed overflow issues that hid the "Anulados" metric on wider screens.
+    -   **Menu Styling**: Consolidated menu styles in `layout.css`.
 
 ## v4.0 - Database Integrity & Printing Logic (2026-01-09)
 -   **Database Refactor**:
@@ -11,16 +35,6 @@
     -   Resolved issue where printed tickets appeared as "Pending" (gray/yellow) because the administrative flag in `bar_comanda` was not updated reliably.
 -   **Compatibility**:
     -   Dashboard frontend logic remains unchanged (Plug & Play update).
-
-## v4.1 - UX Polish & Layout Stability (2026-01-13)
--   **Layout Refactor**:
-    -   **Sticky Header**: Implemented native `position: sticky` for the top bar, replacing the fixed/overflow-hidden model.
-    -   **Native Scroll**: Restored native body scrolling, eliminating horizontal overflow and double scrollbar issues.
-    -   **Overlay Menu**: Replaced sidebar push logic with a clean Overlay Menu for better mobile/desktop experience.
--   **UI Enhancements**:
-    -   **Material Icons**: Replaced plain text labels in top bar (Sales, Ticket, etc.) with intuitive Material Symbols (Outlined).
-    -   **Void Metric Visibility**: Fixed overflow issues that hid the "Anulados" metric on wider screens.
-    -   **Menu Styling**: Considated menu styles in `layout.css`.
 
 ## [Unreleased / Current] - 2026-01-02
 
