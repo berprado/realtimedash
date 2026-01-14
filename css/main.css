@@ -1,3 +1,10 @@
+/* Global Box Sizing Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* Modern Dark Theme Variables */
 :root {
     --bg-color: #0f172a;
@@ -70,11 +77,6 @@ body {
         position: relative;
         /* On very small screens sticky might take too much height */
     }
-
-    .dashboard-header {
-        position: relative;
-        /* On very small screens sticky might take too much height */
-    }
 }
 
 @media (min-width: 901px) {
@@ -109,7 +111,8 @@ h1 {
 }
 
 /* Connection Status Indicators */
-.pulsating-circle {
+.pulsating-circle,
+.status-circle {
     width: 10px;
     height: 10px;
     border-radius: 50%;
