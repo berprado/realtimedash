@@ -43,7 +43,7 @@ html {
 .metric-compact .metric-value {
     font-weight: 700;
     color: var(--text-primary);
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     letter-spacing: 0.5px;
     font-size: 1rem;
 }
@@ -103,7 +103,7 @@ html {
 
 .brand {
     margin-left: 15px;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.7);
     pointer-events: auto;
@@ -140,7 +140,7 @@ html {
 }
 
 .menu-title {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     font-size: 1.5rem;
     color: var(--text-secondary);
     letter-spacing: 2px;
