@@ -21,35 +21,73 @@
 
 .summary-table th,
 .summary-table td {
-    padding: 1rem;
+    padding: 0.75rem 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .summary-table th {
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
     color: var(--text-secondary);
     font-weight: 500;
 }
 
-.summary-table tr:last-child td {
-    border-bottom: none;
+/* Grouped Header Rows */
+.header-group th {
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.header-sub th {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.col-group {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Column Styles */
+.col-id {
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    width: 50px;
+}
+
+.col-name {
+    min-width: 120px;
+}
+
+.col-venta {
+    text-align: right;
+    color: var(--status-sale);
+    font-weight: 600;
+}
+
+.col-cortesia {
+    text-align: right;
+    color: var(--status-courtesy);
+    opacity: 0.85;
+}
+
+/* Product Name + Badge */
 .product-name {
     display: block;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
-.badgex {
+.badge {
     display: inline-block;
     padding: 2px 6px;
     border-radius: 4px;
-    font-size: 0.65rem;
-    /* Smaller font */
+    font-size: 0.6rem;
     background: rgba(255, 255, 255, 0.1);
     color: #94a3b8;
     margin-top: 4px;
@@ -57,23 +95,53 @@
     letter-spacing: 0.5px;
 }
 
-.col-name {
-    min-width: 200px;
+.badge-drink {
+    color: var(--accent-color);
 }
 
+.badge-food {
+    color: var(--status-pending);
+}
+
+/* Footer Totals */
+.totals-label {
+    text-align: right;
+    font-weight: bold;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 1rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 600px) {
+    .summary-table-wrapper {
+        padding: 0.5rem;
+    }
 
     .summary-table th,
     .summary-table td {
-        padding: 0.5rem;
-        font-size: 0.85rem;
+        padding: 0.4rem 0.3rem;
+        font-size: 0.75rem;
+    }
+
+    .col-id {
+        width: 35px;
+    }
+
+    .col-name {
+        min-width: 80px;
     }
 
     .product-name {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 
-    .badgex {
-        font-size: 0.6rem;
+    .badge {
+        font-size: 0.5rem;
+        padding: 1px 4px;
     }
 }

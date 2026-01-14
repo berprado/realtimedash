@@ -64,67 +64,71 @@ function renderSummaryTable(data) {
         return;
     }
 
-    // Header
+    // New grouped header structure
     let html = `
         <div class="summary-table-wrapper">
             <table class="summary-table">
                 <thead>
-                    <tr>
-                        <th style="text-align:left;">Producto</th>
-                        <th style="text-align:center;">Ventas (Cant)</th>
-                        <th style="text-align:right;">Monto Venta</th>
-                        <th style="text-align:center;">Cortesía (Cant)</th>
-                        <th style="text-align:right;">Monto Cortesía</th>
-                        <th style="text-align:right;">Total Global</th>
+                    <tr class="header-group">
+                        <th rowspan="2">ID</th>
+                        <th rowspan="2">Producto</th>
+                        <th colspan="2" class="col-group">Comandas</th>
+                        <th colspan="2" class="col-group">Montos</th>
+                    </tr>
+                    <tr class="header-sub">
+                        <th class="col-venta">V</th>
+                        <th class="col-cortesia">C</th>
+                        <th class="col-venta">V</th>
+                        <th class="col-cortesia">C</th>
                     </tr>
                 </thead>
                 <tbody>
     `;
 
-    let totalVentasGlobal = 0;
-    let totalCortesiasGlobal = 0;
+    let totalVentasCant = 0;
+    let totalCortesiasCant = 0;
+    let totalVentasMonto = 0;
+    let totalCortesiasMonto = 0;
 
     data.forEach(item => {
+        const id = item.id_producto_combo || '-';
         const ventaCant = parseFloat(item.cantidad_venta) || 0;
         const ventaMonto = parseFloat(item.monto_venta) || 0;
         const cortesiaCant = parseFloat(item.cantidad_cortesia) || 0;
         const cortesiaMonto = parseFloat(item.monto_cortesia) || 0;
-        const totalRow = ventaMonto + cortesiaMonto; // Or just Venta? Usually total = revenue.
 
-        totalVentasGlobal += ventaMonto;
-        totalCortesiasGlobal += cortesiaMonto;
+        totalVentasCant += ventaCant;
+        totalCortesiasCant += cortesiaCant;
+        totalVentasMonto += ventaMonto;
+        totalCortesiasMonto += cortesiaMonto;
 
-        // Skip rows with 0 activity if desired, or show all.
-        // if (ventaCant === 0 && cortesiaCant === 0) return;
+        // Category badge class
+        const badgeClass = item.categoria === 'Tragos' ? 'badge-drink' : 'badge-food';
 
         html += `
             <tr>
+                <td class="col-id">${id}</td>
                 <td class="col-name">
                     <span class="product-name">${item.nombre}</span>
-                    <span class="badgex ${item.categoria === 'Tragos' ? 'badge-drink' : 'badge-food'}">${item.categoria || ''}</span>
+                    <span class="badge ${badgeClass}">${item.categoria || ''}</span>
                 </td>
-                <td style="text-align:center; color: var(--status-sale); font-weight:bold;">${ventaCant > 0 ? ventaCant : '-'}</td>
-                <td style="text-align:right;">${ventaMonto > 0 ? formatCurrency(ventaMonto) : '-'}</td>
-                <td style="text-align:center; color: var(--status-courtesy);">${cortesiaCant > 0 ? cortesiaCant : '-'}</td>
-                <td style="text-align:right; opacity:0.7;">${cortesiaMonto > 0 ? formatCurrency(cortesiaMonto) : '-'}</td>
-                <td style="text-align:right; font-weight:bold;">${formatCurrency(ventaMonto)}</td> 
+                <td class="col-venta">${ventaCant > 0 ? ventaCant : '-'}</td>
+                <td class="col-cortesia">${cortesiaCant > 0 ? cortesiaCant : '-'}</td>
+                <td class="col-venta">${ventaMonto > 0 ? formatCurrency(ventaMonto) : '-'}</td>
+                <td class="col-cortesia">${cortesiaMonto > 0 ? formatCurrency(cortesiaMonto) : '-'}</td>
             </tr>
         `;
-        // Note: Total Global usually implies "Revenues", so VentaMonto. 
-        // Cortesias are opportunity cost, arguably shouldn't sum to cash total.
-        // Last column I put ventaMonto as "Real Total".
     });
 
     html += `
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td style="text-align:right; font-weight:bold;">TOTALES</td>
-                        <td></td>
-                        <td style="text-align:right; font-weight:bold; color:var(--status-sale);">${formatCurrency(totalVentasGlobal)}</td>
-                        <td></td>
-                        <td style="text-align:right; font-weight:bold; color:var(--status-courtesy);">${formatCurrency(totalCortesiasGlobal)}</td>
-                        <td style="text-align:right; font-weight:bold; font-size:1.1em; color:var(--text-primary); border-top:1px solid rgba(255,255,255,0.2);">${formatCurrency(totalVentasGlobal)}</td>
+                        <td colspan="2" class="totals-label">TOTALES</td>
+                        <td class="col-venta total">${totalVentasCant}</td>
+                        <td class="col-cortesia total">${totalCortesiasCant}</td>
+                        <td class="col-venta total">${formatCurrency(totalVentasMonto)}</td>
+                        <td class="col-cortesia total">${formatCurrency(totalCortesiasMonto)}</td>
                     </tr>
                 </tfoot>
             </table>
