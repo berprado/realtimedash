@@ -128,57 +128,45 @@
         margin-left: -10px;
         margin-right: -10px;
         width: calc(100% + 20px);
+        overflow-x: auto;
+        /* Ensure scroll is enabled */
     }
 
     .summary-table {
-        table-layout: fixed;
-        /* Force equal distribution */
-        width: 100%;
+        min-width: 500px;
+        /* Force minimum width to require scroll */
+        width: auto;
     }
 
     .summary-table th,
     .summary-table td {
-        padding: 0.3rem 0.15rem;
-        font-size: 0.65rem;
-    }
-
-    /* Column widths for mobile */
-    .col-id {
-        width: 8%;
-    }
-
-    .col-name {
-        width: 32%;
-    }
-
-    .col-venta,
-    .col-cortesia {
-        width: 15%;
+        padding: 0.4rem 0.25rem;
+        font-size: 0.7rem;
+        white-space: nowrap;
     }
 
     .col-group {
-        font-size: 0.6rem;
+        font-size: 0.65rem;
     }
 
     .header-sub th {
-        font-size: 0.55rem;
+        font-size: 0.6rem;
     }
 
     .product-name {
-        font-size: 0.7rem;
-        word-break: break-word;
+        font-size: 0.75rem;
+        white-space: nowrap;
     }
 
     .badge {
         display: none;
-        /* Hide category badge on mobile to save space */
     }
 
     .totals-label {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
 
     .total {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
     }
 }
