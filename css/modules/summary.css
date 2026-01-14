@@ -128,14 +128,18 @@
         margin-left: -10px;
         margin-right: -10px;
         width: calc(100% + 20px);
-        overflow-x: auto;
-        /* Ensure scroll is enabled */
+        max-width: calc(100vw - 20px);
+        /* Constrain to viewport */
+        overflow-x: scroll;
+        /* Force scroll */
+        -webkit-overflow-scrolling: touch;
     }
 
     .summary-table {
-        min-width: 500px;
-        /* Force minimum width to require scroll */
-        width: auto;
+        min-width: 550px;
+        /* Table wider than viewport */
+        width: max-content;
+        /* Expand to content */
     }
 
     .summary-table th,
