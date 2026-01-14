@@ -67,25 +67,7 @@
 }
 
 /* Hide less important metrics on mobile */
-@media (max-width: 900px) {
-    .brand {
-        display: none;
-    }
-
-    /* Hide brand on mobile to save space */
-    .desktop-only {
-        display: none;
-    }
-
-    .metrics-bar {
-        gap: 10px;
-    }
-
-    .metric-compact {
-        padding: 4px 8px;
-        font-size: 0.8rem;
-    }
-}
+/* Hide less important metrics - Removed/Simplified */
 
 .menu-btn {
 
@@ -222,7 +204,10 @@ body {
     /* Sidebar removed, normal flow */
     overflow-y: auto;
     /* Enable native scroll */
+    /* Enable native scroll */
     min-height: 100vh;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
 }
 
 /* App Shell Adjustments */
@@ -239,13 +224,13 @@ body {
     /* Remove internal scroll */
     height: auto;
     overflow: visible;
-    padding-top: 20px;
-    /* Space from sticky header */
+    padding-top: 80px;
+    /* Space for fixed header (60px + gap) */
 }
 
-/* Update Top Bar to Sticky */
+/* Update Top Bar to Sticky/Fixed */
 .top-bar {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -259,37 +244,31 @@ body {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     box-sizing: border-box;
-    /* PERMANENT FIX for overflow */
-    max-width: 100%;
-    /* Ensure it doesn't exceed parent */
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
 }
 
 /* Responsive Top Bar */
 @media (max-width: 600px) {
+    .brand {
+        display: none;
+        /* Hide brand on mobile to prioritize Status Text */
+    }
+
     .top-bar {
-        height: auto;
-        flex-wrap: wrap;
-        padding: 5px 10px;
-        gap: 5px;
+        padding: 0 15px;
+        background: rgba(15, 23, 42, 1);
+        /* Opaque background on mobile */
     }
 
-    .metrics-bar {
-        width: 100%;
-        justify-content: space-between;
-        padding-top: 5px;
-        overflow-x: auto;
-        /* Allow scroll if it still overflows */
-        scrollbar-width: none;
-    }
-
-    .left-section {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .metric-compact {
-        flex-shrink: 0;
-        /* Prevent crushing */
+    #status-text {
+        display: inline-block;
+        /* Show text */
+        font-size: 0.7rem;
+        /* Smaller size */
     }
 }
 
