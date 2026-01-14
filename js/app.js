@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.menu-link');
     const views = {
         'live-monitor': document.getElementById('view-live-monitor'),
-        'analytics-summary': document.getElementById('summary-container')
+        'analytics-summary': document.getElementById('summary-container'),
+        'kpi-view': document.getElementById('view-kpi')
     };
 
     function toggleMenu(show) {
@@ -57,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // 1. Navigation Logic
             if (targetId && views[targetId]) {
                 // Update specific styles/visibility
-                Object.values(views).forEach(el => el.style.display = 'none');
+                Object.values(views).forEach(el => {
+                    if (el) el.style.display = 'none';
+                });
                 views[targetId].style.display = 'block';
 
                 // Update Active Link

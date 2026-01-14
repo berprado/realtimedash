@@ -1,0 +1,103 @@
+/* CSS for KPI Module */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+}
+
+.kpi-card {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.kpi-icon {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.kpi-icon .material-symbols-outlined {
+    font-size: 40px;
+    color: var(--accent-color);
+}
+
+/* Specific Icon Colors */
+#stat-sales .kpi-icon .material-symbols-outlined {
+    color: var(--status-sale);
+}
+
+#stat-courtesy .kpi-icon .material-symbols-outlined {
+    color: var(--status-courtesy);
+}
+
+#stat-void .kpi-icon .material-symbols-outlined {
+    color: var(--status-cancelled);
+}
+
+.kpi-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.kpi-label {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.kpi-card .metric-value {
+    font-family: 'Oswald', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.stat-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .kpi-card .metric-value {
+        font-size: 2.5rem;
+    }
+}
