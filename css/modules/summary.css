@@ -59,23 +59,25 @@
     font-family: 'Roboto Condensed', sans-serif;
     color: var(--text-secondary);
     font-size: 0.85rem;
-    width: 50px;
+    white-space: nowrap;
 }
 
 .col-name {
-    min-width: 120px;
+    /* Auto width based on content */
 }
 
 .col-venta {
     text-align: right;
     color: var(--status-sale);
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .col-cortesia {
     text-align: right;
     color: var(--status-courtesy);
     opacity: 0.85;
+    white-space: nowrap;
 }
 
 /* Product Name + Badge */

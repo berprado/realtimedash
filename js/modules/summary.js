@@ -4,6 +4,11 @@ import { formatCurrency } from './monitor.js';
 let pollInterval = null;
 const POLL_RATE = 5000; // 5 seconds
 
+// Format number without currency symbol
+function formatNumber(amount) {
+    return new Intl.NumberFormat('es-BO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
+}
+
 export function initSummary() {
     // Setup initial state if needed
 }
@@ -73,7 +78,7 @@ function renderSummaryTable(data) {
                         <th rowspan="2">ID</th>
                         <th rowspan="2">Producto</th>
                         <th colspan="2" class="col-group">Comandas</th>
-                        <th colspan="2" class="col-group">Montos</th>
+                        <th colspan="2" class="col-group">Montos (BOB)</th>
                     </tr>
                     <tr class="header-sub">
                         <th class="col-venta">V</th>
@@ -114,8 +119,8 @@ function renderSummaryTable(data) {
                 </td>
                 <td class="col-venta">${ventaCant > 0 ? ventaCant : '-'}</td>
                 <td class="col-cortesia">${cortesiaCant > 0 ? cortesiaCant : '-'}</td>
-                <td class="col-venta">${ventaMonto > 0 ? formatCurrency(ventaMonto) : '-'}</td>
-                <td class="col-cortesia">${cortesiaMonto > 0 ? formatCurrency(cortesiaMonto) : '-'}</td>
+                <td class="col-venta">${ventaMonto > 0 ? formatNumber(ventaMonto) : '-'}</td>
+                <td class="col-cortesia">${cortesiaMonto > 0 ? formatNumber(cortesiaMonto) : '-'}</td>
             </tr>
         `;
     });
@@ -127,8 +132,8 @@ function renderSummaryTable(data) {
                         <td colspan="2" class="totals-label">TOTALES</td>
                         <td class="col-venta total">${totalVentasCant}</td>
                         <td class="col-cortesia total">${totalCortesiasCant}</td>
-                        <td class="col-venta total">${formatCurrency(totalVentasMonto)}</td>
-                        <td class="col-cortesia total">${formatCurrency(totalCortesiasMonto)}</td>
+                        <td class="col-venta total">${formatNumber(totalVentasMonto)}</td>
+                        <td class="col-cortesia total">${formatNumber(totalCortesiasMonto)}</td>
                     </tr>
                 </tfoot>
             </table>
