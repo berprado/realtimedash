@@ -63,7 +63,7 @@
 }
 
 .col-name {
-    /* Auto width based on content */
+    word-break: break-word;
 }
 
 .col-venta {
@@ -123,35 +123,62 @@
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
     .summary-table-wrapper {
-        padding: 0.5rem;
+        padding: 0.25rem;
         border-radius: 0.5rem;
-        /* Smaller radius on mobile */
         margin-left: -10px;
-        /* Extend to edges */
         margin-right: -10px;
         width: calc(100% + 20px);
     }
 
-    .summary-table th,
-    .summary-table td {
-        padding: 0.4rem 0.3rem;
-        font-size: 0.75rem;
+    .summary-table {
+        table-layout: fixed;
+        /* Force equal distribution */
+        width: 100%;
     }
 
+    .summary-table th,
+    .summary-table td {
+        padding: 0.3rem 0.15rem;
+        font-size: 0.65rem;
+    }
+
+    /* Column widths for mobile */
     .col-id {
-        width: 35px;
+        width: 8%;
     }
 
     .col-name {
-        min-width: 80px;
+        width: 32%;
+    }
+
+    .col-venta,
+    .col-cortesia {
+        width: 15%;
+    }
+
+    .col-group {
+        font-size: 0.6rem;
+    }
+
+    .header-sub th {
+        font-size: 0.55rem;
     }
 
     .product-name {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+        word-break: break-word;
     }
 
     .badge {
-        font-size: 0.5rem;
-        padding: 1px 4px;
+        display: none;
+        /* Hide category badge on mobile to save space */
+    }
+
+    .totals-label {
+        font-size: 0.65rem;
+    }
+
+    .total {
+        font-size: 0.7rem;
     }
 }
