@@ -11,6 +11,8 @@
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     margin-top: 1rem;
     animation: fadeIn 0.3s ease-out;
+    /* Ensure content doesn't clip rounded corners */
+    -webkit-overflow-scrolling: touch;
 }
 
 .summary-table {
@@ -120,6 +122,12 @@
 @media (max-width: 600px) {
     .summary-table-wrapper {
         padding: 0.5rem;
+        border-radius: 0.5rem;
+        /* Smaller radius on mobile */
+        margin-left: -10px;
+        /* Extend to edges */
+        margin-right: -10px;
+        width: calc(100% + 20px);
     }
 
     .summary-table th,
