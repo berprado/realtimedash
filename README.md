@@ -72,3 +72,10 @@ The dashboard relies on the `comandas_v7` view which filters data by the **lates
 Open `index.html` in a browser (or `http://localhost/path/to/project`).
 -   **New Orders**: Will appear with a slide-in animation and a sound alert.
 -   **Status**: Look for the icons (🎁 Gift, ✔️ Check, 🚫 Block) to identify order status quickly.
+
+## 📚 Documentation
+
+Additional documentation is available in the `docs/` directory:
+-   **Git Workflows**: [Cómo Eliminar Ramas](docs/git/como_eliminar_ramas.md) - Guide for deleting Git branches
+-   **SQL Documentation**: Technical guides for database views and optimization
+-   **Recommendations**: Performance and responsive design guidelines
