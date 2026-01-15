@@ -77,7 +77,7 @@ function renderSummaryTable(data) {
                     <tr class="header-group">
                         <th rowspan="2">ID</th>
                         <th rowspan="2">Producto</th>
-                        <th colspan="2" class="col-group">Comandas</th>
+                        <th colspan="2" class="col-group">Cantidades</th>
                         <th colspan="2" class="col-group">Montos (BOB)</th>
                     </tr>
                     <tr class="header-sub">

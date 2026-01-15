@@ -67,17 +67,19 @@
 }
 
 .col-venta {
-    text-align: right;
+    text-align: center;
     color: var(--status-sale);
     font-weight: 600;
     white-space: nowrap;
+    width: auto;
 }
 
 .col-cortesia {
-    text-align: right;
+    text-align: center;
     color: var(--status-courtesy);
     opacity: 0.85;
     white-space: nowrap;
+    width: auto;
 }
 
 /* Product Name + Badge */
