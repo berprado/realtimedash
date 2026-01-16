@@ -1,0 +1,180 @@
+/* css/modules/analytics.css */
+/* Custom styles for Tabulator Analytics module */
+/* Extends tabulator_midnight theme to match project design system */
+
+.analytics-container {
+    width: 100%;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Override Tabulator theme to match project */
+#analytics-table {
+    background: var(--card-bg);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Header styling */
+#analytics-table .tabulator-header {
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#analytics-table .tabulator-col {
+    background: transparent;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#analytics-table .tabulator-col-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Sort arrows */
+#analytics-table .tabulator-col.tabulator-sortable .tabulator-col-title {
+    padding-right: 20px;
+}
+
+#analytics-table .tabulator-arrow {
+    border-bottom-color: var(--accent-color);
+}
+
+/* Rows */
+#analytics-table .tabulator-row {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
+}
+
+#analytics-table .tabulator-row:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+#analytics-table .tabulator-row.tabulator-row-even {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+#analytics-table .tabulator-row.tabulator-row-even:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+/* Highlighted row (user selected) */
+#analytics-table .tabulator-row.row-highlighted {
+    background: rgba(99, 102, 241, 0.2) !important;
+    border-left: 3px solid var(--accent-color);
+}
+
+/* Cells */
+#analytics-table .tabulator-cell {
+    padding: 0.75rem 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+/* Column-specific colors */
+#analytics-table .col-venta {
+    color: var(--status-sale);
+    font-weight: 600;
+}
+
+#analytics-table .col-cortesia {
+    color: var(--status-courtesy);
+}
+
+/* Product name cell */
+#analytics-table .product-name {
+    display: block;
+    font-weight: 500;
+}
+
+#analytics-table .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#analytics-table .badge-drink {
+    color: var(--accent-color);
+}
+
+#analytics-table .badge-food {
+    color: var(--status-pending);
+}
+
+/* Footer / Totals */
+#analytics-table .tabulator-footer {
+    background: rgba(15, 23, 42, 0.9);
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+#analytics-table .tabulator-calcs-bottom .tabulator-cell {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+/* Placeholder (empty state) */
+#analytics-table .tabulator-placeholder {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    padding: 3rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .analytics-container {
+        padding: 0.5rem;
+        margin-left: -10px;
+        margin-right: -10px;
+        width: calc(100% + 20px);
+    }
+
+    #analytics-table {
+        border-radius: 0.5rem;
+    }
+
+    #analytics-table .tabulator-cell {
+        padding: 0.4rem 0.25rem;
+        font-size: 0.75rem;
+    }
+
+    #analytics-table .tabulator-col-title {
+        font-size: 0.7rem;
+    }
+
+    #analytics-table .badge {
+        display: none;
+    }
+
+    #analytics-table .product-name {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

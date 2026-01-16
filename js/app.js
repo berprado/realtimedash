@@ -2,6 +2,7 @@
 import { initMonitor, startMonitor } from './modules/monitor.js';
 import { initKPI } from './modules/kpi.js';
 import { initSummary, startSummary, stopSummary } from './modules/summary.js';
+import { initAnalytics, startAnalytics, stopAnalytics } from './modules/analytics.js';
 
 // Register Service Worker for PWA support
 if ('serviceWorker' in navigator) {
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMonitor();  // Setup Monitor Grid
     initKPI();      // Setup Metrics Header
     initSummary();  // Setup Summary Module
+    initAnalytics(); // Setup Analytics Module
 
     // Start Default Module (Monitor)
     startMonitor();
@@ -43,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const views = {
         'live-monitor': document.getElementById('view-live-monitor'),
         'analytics-summary': document.getElementById('summary-container'),
-        'kpi-view': document.getElementById('view-kpi')
+        'kpi-view': document.getElementById('view-kpi'),
+        'analytics-view': document.getElementById('analytics-container')
     };
 
     function toggleMenu(show) {
@@ -95,6 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     startSummary();
                 } else {
                     stopSummary();
+                }
+
+                if (targetId === 'analytics-view') {
+                    startAnalytics();
+                } else {
+                    stopAnalytics();
                 }
 
                 // Scroll reset
