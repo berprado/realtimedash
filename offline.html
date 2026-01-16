@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Conexión - BackDash</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .offline-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(239, 68, 68, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .offline-icon svg {
+            width: 60px;
+            height: 60px;
+            stroke: #ef4444;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .offline-details {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .offline-details ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .offline-details li {
+            padding: 0.5rem 0;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .offline-details li:before {
+            content: "•";
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .retry-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .status-info {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .offline-icon {
+                width: 100px;
+                height: 100px;
+            }
+            .offline-icon svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      stroke="none"
+                      fill="#ef4444"/>
+                <line x1="1" y1="1" x2="23" y2="23" stroke="#ef4444" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <h1>Sin Conexión a Internet</h1>
+
+        <p>
+            No se pudo conectar al servidor. El dashboard necesita conexión activa para mostrar
+            información en tiempo real del Sistema POS.
+        </p>
+
+        <div class="offline-details">
+            <ul>
+                <li>Verifica tu conexión a internet</li>
+                <li>Confirma que el servidor esté disponible</li>
+                <li>Intenta recargar la página</li>
+            </ul>
+        </div>
+
+        <button class="retry-button" onclick="window.location.reload()">
+            Reintentar Conexión
+        </button>
+
+        <div class="status-info">
+            <strong>BackDash</strong> - Dashboard Operativo BackStage<br>
+            Modo offline activado
+        </div>
+    </div>
+
+    <script>
+        // Listener para cuando la conexión se restablezca
+        window.addEventListener('online', () => {
+            console.log('[PWA] Conexión restablecida, recargando...');
+            window.location.reload();
+        });
+
+        // Verificar estado de conexión cada 5 segundos
+        setInterval(() => {
+            if (navigator.onLine) {
+                fetch('/mysql-realtime-fetching/', { method: 'HEAD' })
+                    .then(() => {
+                        console.log('[PWA] Servidor disponible, recargando...');
+                        window.location.reload();
+                    })
+                    .catch(() => {
+                        console.log('[PWA] Sin conexión al servidor');
+                    });
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

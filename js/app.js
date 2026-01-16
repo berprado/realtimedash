@@ -3,6 +3,29 @@ import { initMonitor, startMonitor } from './modules/monitor.js';
 import { initKPI } from './modules/kpi.js';
 import { initSummary, startSummary, stopSummary } from './modules/summary.js';
 
+// Register Service Worker for PWA support
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/mysql-realtime-fetching/service-worker.js')
+            .then(registration => {
+                console.log('[PWA] Service Worker registrado exitosamente:', registration.scope);
+
+                // Verificar actualizaciones cada 60 minutos
+                setInterval(() => {
+                    registration.update();
+                }, 60 * 60 * 1000);
+            })
+            .catch(error => {
+                console.error('[PWA] Error al registrar Service Worker:', error);
+            });
+
+        // Listener para actualizaciones del Service Worker
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            console.log('[PWA] Nueva versión del Service Worker activada');
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Modules
     initMonitor();  // Setup Monitor Grid
