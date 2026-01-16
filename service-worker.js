@@ -3,7 +3,7 @@
  * Estrategia: Cache First para assets, Network First para HTML y datos
  */
 
-const CACHE_VERSION = 'backdash-v1.0.0';
+const CACHE_VERSION = 'backdash-v1.1.0';
 const CACHE_STATIC = `${CACHE_VERSION}-static`;
 const CACHE_DYNAMIC = `${CACHE_VERSION}-dynamic`;
 
@@ -16,6 +16,7 @@ const STATIC_ASSETS = [
   '/mysql-realtime-fetching/css/layout.css',
   '/mysql-realtime-fetching/css/modules/summary.css',
   '/mysql-realtime-fetching/css/modules/kpi.css',
+  '/mysql-realtime-fetching/css/modules/analytics.css',
   '/mysql-realtime-fetching/assets/favicon/android-icon-192x192.png',
   '/mysql-realtime-fetching/assets/favicon/android-icon-512x512.png',
   '/mysql-realtime-fetching/assets/favicon/favicon-32x32.png'
@@ -65,8 +66,8 @@ self.addEventListener('activate', (event) => {
           cacheNames.map((cacheName) => {
             // Eliminar caches de versiones anteriores
             if (cacheName.startsWith('backdash-') &&
-                cacheName !== CACHE_STATIC &&
-                cacheName !== CACHE_DYNAMIC) {
+              cacheName !== CACHE_STATIC &&
+              cacheName !== CACHE_DYNAMIC) {
               console.log('[Service Worker] Eliminando cache antiguo:', cacheName);
               return caches.delete(cacheName);
             }
@@ -217,7 +218,7 @@ function isStaticAsset(url) {
  */
 function isHTMLPage(request) {
   return request.destination === 'document' ||
-         request.headers.get('Accept')?.includes('text/html');
+    request.headers.get('Accept')?.includes('text/html');
 }
 
 /**

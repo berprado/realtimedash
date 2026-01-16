@@ -155,6 +155,10 @@ async function loadAnalyticsData() {
             lastDataJSON = currentJSON;
             console.log("[Analytics] Data updated:", data.length, "items");
 
+            // Hide loading indicator
+            const loadingEl = document.getElementById('analytics-loading');
+            if (loadingEl) loadingEl.style.display = 'none';
+
             if (table) {
                 // Update existing table (preserves sort state)
                 table.setData(data);
@@ -164,6 +168,9 @@ async function loadAnalyticsData() {
             }
         } else {
             console.log("[Analytics] Data unchanged, skipping render");
+            // Still hide loading if visible
+            const loadingEl = document.getElementById('analytics-loading');
+            if (loadingEl) loadingEl.style.display = 'none';
         }
 
     } catch (e) {
