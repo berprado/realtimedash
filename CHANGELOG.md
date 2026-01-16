@@ -1,5 +1,16 @@
 # Changelog
 
+## v4.3 - PWA & Menu i18n (2026-01-16)
+-   **PWA Support**:
+    -   Added Service Worker with caching strategy for offline access.
+    -   Added `offline.html` fallback page with branded UI.
+-   **UI i18n**:
+    -   Renamed menu links to Spanish: "Comandas", "Indicadores", "Ventas x Producto".
+    -   Consistent font sizing across all devices.
+-   **Documentation**:
+    -   Updated README with PWA features and correct font names.
+    -   Added migration scripts to project structure docs.
+
 ## v4.2 - Responsive Design Fixes (2026-01-14)
 -   **Critical Fixes**:
     -   **Status Indicator**: Fixed `.status-circle` missing styles - connection indicator now visible.

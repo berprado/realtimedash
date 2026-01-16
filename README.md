@@ -13,14 +13,15 @@ This project is a high-end, real-time sales dashboard designed for hospitality e
 -   **Connection Health Monitor**: Visual feedback for connection state (🟢 Connected, 🟡 Reconnecting, 🔴 Disconnected) to handle network instability gracefully.
 -   **Empty State UI**: Friendly placeholder when no orders are active.
 -   **Sticky Metrics Header**: Real-time analytics (Sales, Average, Courtesies, Voided) with Material Icons, pinned to the top.
--   **Overlay Navigation**: Clean, accessible menu for navigating between views (Live Monitor, Analytics).
+-   **Overlay Navigation**: Clean, accessible menu for navigating between views (Comandas, Indicadores, Ventas x Producto).
 -   **Product Summary Analytics**: Detailed breakdown of sales by product (Quantity/Amount) including courtesies.
 -   **Multi-Environment**: Easy switch between Local (Test) and Remote (Production) databases via `.env`.
 
 ## 🛠️ Technologies
 
 -   **Frontend**: HTML5, Modern CSS3 (Variables, Grid, keyframes), JavaScript (ES6+).
--   **Assets**: Google Fonts (Oswald, Inter), Google Material Symbols.
+-   **Assets**: Google Fonts (Inter, Roboto Condensed), Google Material Symbols.
+-   **PWA**: Service Worker for offline access, installable web app.
 -   **Backend**: PHP 7.x/8.x.
 -   **Database**: MySQL 5.6.12+ (Requires `comandas_v7` view).
 
@@ -39,6 +40,9 @@ mysql-realtime-fetching/
 │   ├── recomendaciones/  # Design guides and recommendations
 │   ├── sql/              # Database views and migration docs
 │   └── capturas/         # Screenshots
+├── scripts/
+│   ├── migrate_v7.php          # comandas_v7 view deployment
+│   └── migrate_resumen_v7.php  # resumen view deployment
 ├── js/
 │   ├── modules/
 │   │   ├── kpi.js      # Metrics header logic
@@ -49,7 +53,9 @@ mysql-realtime-fetching/
 ├── fetch.php           # Monitor Polling Endpoint
 ├── fetch_summary.php   # Analytics Endpoint
 ├── index.html          # Main Application Shell
-├── CHANGELOG.md        # Version history (current: v4.2)
+├── offline.html        # PWA Offline fallback page
+├── service-worker.js   # PWA caching strategy
+├── CHANGELOG.md        # Version history (current: v4.3)
 └── .env                # Environment configuration
 ```
 ### 1. Database Check
